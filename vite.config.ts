@@ -41,7 +41,7 @@ export default defineConfig(({ command, mode }) => {
                   // ESM, UMD, CJS 등 빌드할 포맷
                   formats: ['es', 'umd'],
                   // 생성될 파일 이름 패턴
-                  fileName: (format) => `index.${format}.js`,
+                  fileName: (format) => `matrixphere.${format}.js`,
                 },
                 // 필요한 경우 sourcemap, rollupOptions 등을 지정
                 sourcemap: false,

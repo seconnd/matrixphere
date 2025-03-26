@@ -1,8 +1,12 @@
 {
   "name": "matrixphere",
-  "version": "0.0.2",
-  "description": "버전: 0.0.1 | 작성일: 2025-03-14",
-  "main": "index.js",
+  "version": "0.0.3",
+  "description": "버전: 0.0.3 | 작성일: 2025-03-26",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.es.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

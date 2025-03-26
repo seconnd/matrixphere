@@ -25,7 +25,7 @@ UMD
 ```javascript
 <script src="matrixphere"></script> // html
 ...
-const { m$, stateObservable } = matrixphere // js script
+const { m$, stateObservable } = Matrixphere // js script
 ```
 
 ## 상태값 생성
