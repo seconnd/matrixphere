@@ -1,610 +1,565 @@
-var we = (r) => {
-  throw TypeError(r);
+var mt = (i) => {
+  throw TypeError(i);
 };
-var $e = (r, n, e) => n.has(r) || we("Cannot " + e);
-var l = (r, n, e) => ($e(r, n, "read from private field"), e ? e.call(r) : n.get(r)), d = (r, n, e) => n.has(r) ? we("Cannot add the same private member more than once") : n instanceof WeakSet ? n.add(r) : n.set(r, e), p = (r, n, e, t) => ($e(r, n, "write to private field"), t ? t.call(r, e) : n.set(r, e), e);
-var ce = function(r, n) {
-  return ce = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(e, t) {
-    e.__proto__ = t;
-  } || function(e, t) {
-    for (var i in t) Object.prototype.hasOwnProperty.call(t, i) && (e[i] = t[i]);
-  }, ce(r, n);
+var wt = (i, r, t) => r.has(i) || mt("Cannot " + t);
+var l = (i, r, t) => (wt(i, r, "read from private field"), t ? t.call(i) : r.get(i)), h = (i, r, t) => r.has(i) ? mt("Cannot add the same private member more than once") : r instanceof WeakSet ? r.add(i) : r.set(i, t), d = (i, r, t, e) => (wt(i, r, "write to private field"), e ? e.call(i, t) : r.set(i, t), t);
+var at = function(i, r) {
+  return at = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(t, e) {
+    t.__proto__ = e;
+  } || function(t, e) {
+    for (var s in e) Object.prototype.hasOwnProperty.call(e, s) && (t[s] = e[s]);
+  }, at(i, r);
 };
-function te(r, n) {
-  if (typeof n != "function" && n !== null)
-    throw new TypeError("Class extends value " + String(n) + " is not a constructor or null");
-  ce(r, n);
-  function e() {
-    this.constructor = r;
+function tt(i, r) {
+  if (typeof r != "function" && r !== null)
+    throw new TypeError("Class extends value " + String(r) + " is not a constructor or null");
+  at(i, r);
+  function t() {
+    this.constructor = i;
   }
-  r.prototype = n === null ? Object.create(n) : (e.prototype = n.prototype, new e());
+  i.prototype = r === null ? Object.create(r) : (t.prototype = r.prototype, new t());
 }
-function le(r) {
-  var n = typeof Symbol == "function" && Symbol.iterator, e = n && r[n], t = 0;
-  if (e) return e.call(r);
-  if (r && typeof r.length == "number") return {
+function ct(i) {
+  var r = typeof Symbol == "function" && Symbol.iterator, t = r && i[r], e = 0;
+  if (t) return t.call(i);
+  if (i && typeof i.length == "number") return {
     next: function() {
-      return r && t >= r.length && (r = void 0), { value: r && r[t++], done: !r };
+      return i && e >= i.length && (i = void 0), { value: i && i[e++], done: !i };
     }
   };
-  throw new TypeError(n ? "Object is not iterable." : "Symbol.iterator is not defined.");
+  throw new TypeError(r ? "Object is not iterable." : "Symbol.iterator is not defined.");
 }
-function he(r, n) {
-  var e = typeof Symbol == "function" && r[Symbol.iterator];
-  if (!e) return r;
-  var t = e.call(r), i, s = [], o;
+function lt(i, r) {
+  var t = typeof Symbol == "function" && i[Symbol.iterator];
+  if (!t) return i;
+  var e = t.call(i), s, n = [], o;
   try {
-    for (; (n === void 0 || n-- > 0) && !(i = t.next()).done; ) s.push(i.value);
-  } catch (u) {
-    o = { error: u };
+    for (; (r === void 0 || r-- > 0) && !(s = e.next()).done; ) n.push(s.value);
+  } catch (a) {
+    o = { error: a };
   } finally {
     try {
-      i && !i.done && (e = t.return) && e.call(t);
+      s && !s.done && (t = e.return) && t.call(e);
     } finally {
       if (o) throw o.error;
     }
   }
-  return s;
+  return n;
 }
-function de(r, n, e) {
-  if (e || arguments.length === 2) for (var t = 0, i = n.length, s; t < i; t++)
-    (s || !(t in n)) && (s || (s = Array.prototype.slice.call(n, 0, t)), s[t] = n[t]);
-  return r.concat(s || Array.prototype.slice.call(n));
+function ht(i, r, t) {
+  if (t || arguments.length === 2) for (var e = 0, s = r.length, n; e < s; e++)
+    (n || !(e in r)) && (n || (n = Array.prototype.slice.call(r, 0, e)), n[e] = r[e]);
+  return i.concat(n || Array.prototype.slice.call(r));
 }
-function S(r) {
-  return typeof r == "function";
+function x(i) {
+  return typeof i == "function";
 }
-function Pe(r) {
-  var n = function(t) {
-    Error.call(t), t.stack = new Error().stack;
-  }, e = r(n);
-  return e.prototype = Object.create(Error.prototype), e.prototype.constructor = e, e;
+function At(i) {
+  var r = function(e) {
+    Error.call(e), e.stack = new Error().stack;
+  }, t = i(r);
+  return t.prototype = Object.create(Error.prototype), t.prototype.constructor = t, t;
 }
-var ie = Pe(function(r) {
-  return function(e) {
-    r(this), this.message = e ? e.length + ` errors occurred during unsubscription:
-` + e.map(function(t, i) {
-      return i + 1 + ") " + t.toString();
+var it = At(function(i) {
+  return function(t) {
+    i(this), this.message = t ? t.length + ` errors occurred during unsubscription:
+` + t.map(function(e, s) {
+      return s + 1 + ") " + e.toString();
     }).join(`
-  `) : "", this.name = "UnsubscriptionError", this.errors = e;
+  `) : "", this.name = "UnsubscriptionError", this.errors = t;
   };
 });
-function pe(r, n) {
-  if (r) {
-    var e = r.indexOf(n);
-    0 <= e && r.splice(e, 1);
+function dt(i, r) {
+  if (i) {
+    var t = i.indexOf(r);
+    0 <= t && i.splice(t, 1);
   }
 }
-var re = function() {
-  function r(n) {
-    this.initialTeardown = n, this.closed = !1, this._parentage = null, this._finalizers = null;
+var et = function() {
+  function i(r) {
+    this.initialTeardown = r, this.closed = !1, this._parentage = null, this._finalizers = null;
   }
-  return r.prototype.unsubscribe = function() {
-    var n, e, t, i, s;
+  return i.prototype.unsubscribe = function() {
+    var r, t, e, s, n;
     if (!this.closed) {
       this.closed = !0;
       var o = this._parentage;
       if (o)
         if (this._parentage = null, Array.isArray(o))
           try {
-            for (var u = le(o), a = u.next(); !a.done; a = u.next()) {
-              var c = a.value;
+            for (var a = ct(o), u = a.next(); !u.done; u = a.next()) {
+              var c = u.value;
               c.remove(this);
             }
-          } catch (v) {
-            n = { error: v };
+          } catch (_) {
+            r = { error: _ };
           } finally {
             try {
-              a && !a.done && (e = u.return) && e.call(u);
+              u && !u.done && (t = a.return) && t.call(a);
             } finally {
-              if (n) throw n.error;
+              if (r) throw r.error;
             }
           }
         else
           o.remove(this);
-      var g = this.initialTeardown;
-      if (S(g))
+      var v = this.initialTeardown;
+      if (x(v))
         try {
-          g();
-        } catch (v) {
-          s = v instanceof ie ? v.errors : [v];
+          v();
+        } catch (_) {
+          n = _ instanceof it ? _.errors : [_];
         }
       var f = this._finalizers;
       if (f) {
         this._finalizers = null;
         try {
-          for (var m = le(f), E = m.next(); !E.done; E = m.next()) {
-            var R = E.value;
+          for (var w = ct(f), $ = w.next(); !$.done; $ = w.next()) {
+            var O = $.value;
             try {
-              Ee(R);
-            } catch (v) {
-              s = s ?? [], v instanceof ie ? s = de(de([], he(s)), he(v.errors)) : s.push(v);
+              $t(O);
+            } catch (_) {
+              n = n ?? [], _ instanceof it ? n = ht(ht([], lt(n)), lt(_.errors)) : n.push(_);
             }
           }
-        } catch (v) {
-          t = { error: v };
+        } catch (_) {
+          e = { error: _ };
         } finally {
           try {
-            E && !E.done && (i = m.return) && i.call(m);
+            $ && !$.done && (s = w.return) && s.call(w);
           } finally {
-            if (t) throw t.error;
+            if (e) throw e.error;
           }
         }
       }
-      if (s)
-        throw new ie(s);
+      if (n)
+        throw new it(n);
     }
-  }, r.prototype.add = function(n) {
-    var e;
-    if (n && n !== this)
+  }, i.prototype.add = function(r) {
+    var t;
+    if (r && r !== this)
       if (this.closed)
-        Ee(n);
+        $t(r);
       else {
-        if (n instanceof r) {
-          if (n.closed || n._hasParent(this))
+        if (r instanceof i) {
+          if (r.closed || r._hasParent(this))
             return;
-          n._addParent(this);
+          r._addParent(this);
         }
-        (this._finalizers = (e = this._finalizers) !== null && e !== void 0 ? e : []).push(n);
+        (this._finalizers = (t = this._finalizers) !== null && t !== void 0 ? t : []).push(r);
       }
-  }, r.prototype._hasParent = function(n) {
-    var e = this._parentage;
-    return e === n || Array.isArray(e) && e.includes(n);
-  }, r.prototype._addParent = function(n) {
-    var e = this._parentage;
-    this._parentage = Array.isArray(e) ? (e.push(n), e) : e ? [e, n] : n;
-  }, r.prototype._removeParent = function(n) {
-    var e = this._parentage;
-    e === n ? this._parentage = null : Array.isArray(e) && pe(e, n);
-  }, r.prototype.remove = function(n) {
-    var e = this._finalizers;
-    e && pe(e, n), n instanceof r && n._removeParent(this);
-  }, r.EMPTY = function() {
-    var n = new r();
-    return n.closed = !0, n;
-  }(), r;
-}(), Re = re.EMPTY;
-function Ie(r) {
-  return r instanceof re || r && "closed" in r && S(r.remove) && S(r.add) && S(r.unsubscribe);
+  }, i.prototype._hasParent = function(r) {
+    var t = this._parentage;
+    return t === r || Array.isArray(t) && t.includes(r);
+  }, i.prototype._addParent = function(r) {
+    var t = this._parentage;
+    this._parentage = Array.isArray(t) ? (t.push(r), t) : t ? [t, r] : r;
+  }, i.prototype._removeParent = function(r) {
+    var t = this._parentage;
+    t === r ? this._parentage = null : Array.isArray(t) && dt(t, r);
+  }, i.prototype.remove = function(r) {
+    var t = this._finalizers;
+    t && dt(t, r), r instanceof i && r._removeParent(this);
+  }, i.EMPTY = function() {
+    var r = new i();
+    return r.closed = !0, r;
+  }(), i;
+}(), Pt = et.EMPTY;
+function Rt(i) {
+  return i instanceof et || i && "closed" in i && x(i.remove) && x(i.add) && x(i.unsubscribe);
 }
-function Ee(r) {
-  S(r) ? r() : r.unsubscribe();
+function $t(i) {
+  x(i) ? i() : i.unsubscribe();
 }
-var Ye = {
+var Ht = {
   Promise: void 0
-}, Je = {
-  setTimeout: function(r, n) {
-    for (var e = [], t = 2; t < arguments.length; t++)
-      e[t - 2] = arguments[t];
-    return setTimeout.apply(void 0, de([r, n], he(e)));
+}, Lt = {
+  setTimeout: function(i, r) {
+    for (var t = [], e = 2; e < arguments.length; e++)
+      t[e - 2] = arguments[e];
+    return setTimeout.apply(void 0, ht([i, r], lt(t)));
   },
-  clearTimeout: function(r) {
-    return clearTimeout(r);
+  clearTimeout: function(i) {
+    return clearTimeout(i);
   },
   delegate: void 0
 };
-function Ke(r) {
-  Je.setTimeout(function() {
-    throw r;
+function Jt(i) {
+  Lt.setTimeout(function() {
+    throw i;
   });
 }
-function Se() {
+function St() {
 }
-function ee(r) {
-  r();
+function Q(i) {
+  i();
 }
-var je = function(r) {
-  te(n, r);
-  function n(e) {
-    var t = r.call(this) || this;
-    return t.isStopped = !1, e ? (t.destination = e, Ie(e) && e.add(t)) : t.destination = ze, t;
+var Ut = function(i) {
+  tt(r, i);
+  function r(t) {
+    var e = i.call(this) || this;
+    return e.isStopped = !1, t ? (e.destination = t, Rt(t) && t.add(e)) : e.destination = Yt, e;
   }
-  return n.create = function(e, t, i) {
-    return new fe(e, t, i);
-  }, n.prototype.next = function(e) {
-    this.isStopped || this._next(e);
-  }, n.prototype.error = function(e) {
-    this.isStopped || (this.isStopped = !0, this._error(e));
-  }, n.prototype.complete = function() {
+  return r.create = function(t, e, s) {
+    return new ft(t, e, s);
+  }, r.prototype.next = function(t) {
+    this.isStopped || this._next(t);
+  }, r.prototype.error = function(t) {
+    this.isStopped || (this.isStopped = !0, this._error(t));
+  }, r.prototype.complete = function() {
     this.isStopped || (this.isStopped = !0, this._complete());
-  }, n.prototype.unsubscribe = function() {
-    this.closed || (this.isStopped = !0, r.prototype.unsubscribe.call(this), this.destination = null);
-  }, n.prototype._next = function(e) {
-    this.destination.next(e);
-  }, n.prototype._error = function(e) {
+  }, r.prototype.unsubscribe = function() {
+    this.closed || (this.isStopped = !0, i.prototype.unsubscribe.call(this), this.destination = null);
+  }, r.prototype._next = function(t) {
+    this.destination.next(t);
+  }, r.prototype._error = function(t) {
     try {
-      this.destination.error(e);
+      this.destination.error(t);
     } finally {
       this.unsubscribe();
     }
-  }, n.prototype._complete = function() {
+  }, r.prototype._complete = function() {
     try {
       this.destination.complete();
     } finally {
       this.unsubscribe();
     }
-  }, n;
-}(re), Be = function() {
-  function r(n) {
-    this.partialObserver = n;
+  }, r;
+}(et), Vt = function() {
+  function i(r) {
+    this.partialObserver = r;
   }
-  return r.prototype.next = function(n) {
-    var e = this.partialObserver;
-    if (e.next)
+  return i.prototype.next = function(r) {
+    var t = this.partialObserver;
+    if (t.next)
       try {
-        e.next(n);
-      } catch (t) {
-        Z(t);
+        t.next(r);
+      } catch (e) {
+        q(e);
       }
-  }, r.prototype.error = function(n) {
-    var e = this.partialObserver;
-    if (e.error)
+  }, i.prototype.error = function(r) {
+    var t = this.partialObserver;
+    if (t.error)
       try {
-        e.error(n);
-      } catch (t) {
-        Z(t);
+        t.error(r);
+      } catch (e) {
+        q(e);
       }
     else
-      Z(n);
-  }, r.prototype.complete = function() {
-    var n = this.partialObserver;
-    if (n.complete)
+      q(r);
+  }, i.prototype.complete = function() {
+    var r = this.partialObserver;
+    if (r.complete)
       try {
-        n.complete();
-      } catch (e) {
-        Z(e);
+        r.complete();
+      } catch (t) {
+        q(t);
       }
-  }, r;
-}(), fe = function(r) {
-  te(n, r);
-  function n(e, t, i) {
-    var s = r.call(this) || this, o;
-    return S(e) || !e ? o = {
-      next: e ?? void 0,
-      error: t ?? void 0,
-      complete: i ?? void 0
-    } : o = e, s.destination = new Be(o), s;
+  }, i;
+}(), ft = function(i) {
+  tt(r, i);
+  function r(t, e, s) {
+    var n = i.call(this) || this, o;
+    return x(t) || !t ? o = {
+      next: t ?? void 0,
+      error: e ?? void 0,
+      complete: s ?? void 0
+    } : o = t, n.destination = new Vt(o), n;
   }
-  return n;
-}(je);
-function Z(r) {
-  Ke(r);
+  return r;
+}(Ut);
+function q(i) {
+  Jt(i);
 }
-function We(r) {
-  throw r;
+function Bt(i) {
+  throw i;
 }
-var ze = {
+var Yt = {
   closed: !0,
-  next: Se,
-  error: We,
-  complete: Se
-}, Xe = function() {
+  next: St,
+  error: Bt,
+  complete: St
+}, Kt = function() {
   return typeof Symbol == "function" && Symbol.observable || "@@observable";
 }();
-function Ge(r) {
-  return r;
+function Wt(i) {
+  return i;
 }
-function qe(r) {
-  return r.length === 0 ? Ge : r.length === 1 ? r[0] : function(e) {
-    return r.reduce(function(t, i) {
-      return i(t);
-    }, e);
+function zt(i) {
+  return i.length === 0 ? Wt : i.length === 1 ? i[0] : function(t) {
+    return i.reduce(function(e, s) {
+      return s(e);
+    }, t);
   };
 }
-var xe = function() {
-  function r(n) {
-    n && (this._subscribe = n);
+var xt = function() {
+  function i(r) {
+    r && (this._subscribe = r);
   }
-  return r.prototype.lift = function(n) {
-    var e = new r();
-    return e.source = this, e.operator = n, e;
-  }, r.prototype.subscribe = function(n, e, t) {
-    var i = this, s = Ze(n) ? n : new fe(n, e, t);
-    return ee(function() {
-      var o = i, u = o.operator, a = o.source;
-      s.add(u ? u.call(s, a) : a ? i._subscribe(s) : i._trySubscribe(s));
-    }), s;
-  }, r.prototype._trySubscribe = function(n) {
+  return i.prototype.lift = function(r) {
+    var t = new i();
+    return t.source = this, t.operator = r, t;
+  }, i.prototype.subscribe = function(r, t, e) {
+    var s = this, n = Gt(r) ? r : new ft(r, t, e);
+    return Q(function() {
+      var o = s, a = o.operator, u = o.source;
+      n.add(a ? a.call(n, u) : u ? s._subscribe(n) : s._trySubscribe(n));
+    }), n;
+  }, i.prototype._trySubscribe = function(r) {
     try {
-      return this._subscribe(n);
-    } catch (e) {
-      n.error(e);
+      return this._subscribe(r);
+    } catch (t) {
+      r.error(t);
     }
-  }, r.prototype.forEach = function(n, e) {
-    var t = this;
-    return e = Oe(e), new e(function(i, s) {
-      var o = new fe({
-        next: function(u) {
+  }, i.prototype.forEach = function(r, t) {
+    var e = this;
+    return t = Et(t), new t(function(s, n) {
+      var o = new ft({
+        next: function(a) {
           try {
-            n(u);
-          } catch (a) {
-            s(a), o.unsubscribe();
+            r(a);
+          } catch (u) {
+            n(u), o.unsubscribe();
           }
         },
-        error: s,
-        complete: i
+        error: n,
+        complete: s
       });
-      t.subscribe(o);
+      e.subscribe(o);
     });
-  }, r.prototype._subscribe = function(n) {
-    var e;
-    return (e = this.source) === null || e === void 0 ? void 0 : e.subscribe(n);
-  }, r.prototype[Xe] = function() {
+  }, i.prototype._subscribe = function(r) {
+    var t;
+    return (t = this.source) === null || t === void 0 ? void 0 : t.subscribe(r);
+  }, i.prototype[Kt] = function() {
     return this;
-  }, r.prototype.pipe = function() {
-    for (var n = [], e = 0; e < arguments.length; e++)
-      n[e] = arguments[e];
-    return qe(n)(this);
-  }, r.prototype.toPromise = function(n) {
-    var e = this;
-    return n = Oe(n), new n(function(t, i) {
-      var s;
-      e.subscribe(function(o) {
-        return s = o;
+  }, i.prototype.pipe = function() {
+    for (var r = [], t = 0; t < arguments.length; t++)
+      r[t] = arguments[t];
+    return zt(r)(this);
+  }, i.prototype.toPromise = function(r) {
+    var t = this;
+    return r = Et(r), new r(function(e, s) {
+      var n;
+      t.subscribe(function(o) {
+        return n = o;
       }, function(o) {
-        return i(o);
+        return s(o);
       }, function() {
-        return t(s);
+        return e(n);
       });
     });
-  }, r.create = function(n) {
-    return new r(n);
-  }, r;
+  }, i.create = function(r) {
+    return new i(r);
+  }, i;
 }();
-function Oe(r) {
-  var n;
-  return (n = r ?? Ye.Promise) !== null && n !== void 0 ? n : Promise;
+function Et(i) {
+  var r;
+  return (r = i ?? Ht.Promise) !== null && r !== void 0 ? r : Promise;
 }
-function Qe(r) {
-  return r && S(r.next) && S(r.error) && S(r.complete);
+function Xt(i) {
+  return i && x(i.next) && x(i.error) && x(i.complete);
 }
-function Ze(r) {
-  return r && r instanceof je || Qe(r) && Ie(r);
+function Gt(i) {
+  return i && i instanceof Ut || Xt(i) && Rt(i);
 }
-var et = Pe(function(r) {
+var qt = At(function(i) {
   return function() {
-    r(this), this.name = "ObjectUnsubscribedError", this.message = "object unsubscribed";
+    i(this), this.name = "ObjectUnsubscribedError", this.message = "object unsubscribed";
   };
-}), De = function(r) {
-  te(n, r);
-  function n() {
-    var e = r.call(this) || this;
-    return e.closed = !1, e.currentObservers = null, e.observers = [], e.isStopped = !1, e.hasError = !1, e.thrownError = null, e;
+}), It = function(i) {
+  tt(r, i);
+  function r() {
+    var t = i.call(this) || this;
+    return t.closed = !1, t.currentObservers = null, t.observers = [], t.isStopped = !1, t.hasError = !1, t.thrownError = null, t;
   }
-  return n.prototype.lift = function(e) {
-    var t = new Te(this, this);
-    return t.operator = e, t;
-  }, n.prototype._throwIfClosed = function() {
+  return r.prototype.lift = function(t) {
+    var e = new Ot(this, this);
+    return e.operator = t, e;
+  }, r.prototype._throwIfClosed = function() {
     if (this.closed)
-      throw new et();
-  }, n.prototype.next = function(e) {
-    var t = this;
-    ee(function() {
-      var i, s;
-      if (t._throwIfClosed(), !t.isStopped) {
-        t.currentObservers || (t.currentObservers = Array.from(t.observers));
+      throw new qt();
+  }, r.prototype.next = function(t) {
+    var e = this;
+    Q(function() {
+      var s, n;
+      if (e._throwIfClosed(), !e.isStopped) {
+        e.currentObservers || (e.currentObservers = Array.from(e.observers));
         try {
-          for (var o = le(t.currentObservers), u = o.next(); !u.done; u = o.next()) {
-            var a = u.value;
-            a.next(e);
+          for (var o = ct(e.currentObservers), a = o.next(); !a.done; a = o.next()) {
+            var u = a.value;
+            u.next(t);
           }
         } catch (c) {
-          i = { error: c };
+          s = { error: c };
         } finally {
           try {
-            u && !u.done && (s = o.return) && s.call(o);
+            a && !a.done && (n = o.return) && n.call(o);
           } finally {
-            if (i) throw i.error;
+            if (s) throw s.error;
           }
         }
       }
     });
-  }, n.prototype.error = function(e) {
-    var t = this;
-    ee(function() {
-      if (t._throwIfClosed(), !t.isStopped) {
-        t.hasError = t.isStopped = !0, t.thrownError = e;
-        for (var i = t.observers; i.length; )
-          i.shift().error(e);
-      }
-    });
-  }, n.prototype.complete = function() {
+  }, r.prototype.error = function(t) {
     var e = this;
-    ee(function() {
+    Q(function() {
       if (e._throwIfClosed(), !e.isStopped) {
-        e.isStopped = !0;
-        for (var t = e.observers; t.length; )
-          t.shift().complete();
+        e.hasError = e.isStopped = !0, e.thrownError = t;
+        for (var s = e.observers; s.length; )
+          s.shift().error(t);
       }
     });
-  }, n.prototype.unsubscribe = function() {
+  }, r.prototype.complete = function() {
+    var t = this;
+    Q(function() {
+      if (t._throwIfClosed(), !t.isStopped) {
+        t.isStopped = !0;
+        for (var e = t.observers; e.length; )
+          e.shift().complete();
+      }
+    });
+  }, r.prototype.unsubscribe = function() {
     this.isStopped = this.closed = !0, this.observers = this.currentObservers = null;
-  }, Object.defineProperty(n.prototype, "observed", {
+  }, Object.defineProperty(r.prototype, "observed", {
     get: function() {
-      var e;
-      return ((e = this.observers) === null || e === void 0 ? void 0 : e.length) > 0;
+      var t;
+      return ((t = this.observers) === null || t === void 0 ? void 0 : t.length) > 0;
     },
     enumerable: !1,
     configurable: !0
-  }), n.prototype._trySubscribe = function(e) {
-    return this._throwIfClosed(), r.prototype._trySubscribe.call(this, e);
-  }, n.prototype._subscribe = function(e) {
-    return this._throwIfClosed(), this._checkFinalizedStatuses(e), this._innerSubscribe(e);
-  }, n.prototype._innerSubscribe = function(e) {
-    var t = this, i = this, s = i.hasError, o = i.isStopped, u = i.observers;
-    return s || o ? Re : (this.currentObservers = null, u.push(e), new re(function() {
-      t.currentObservers = null, pe(u, e);
+  }), r.prototype._trySubscribe = function(t) {
+    return this._throwIfClosed(), i.prototype._trySubscribe.call(this, t);
+  }, r.prototype._subscribe = function(t) {
+    return this._throwIfClosed(), this._checkFinalizedStatuses(t), this._innerSubscribe(t);
+  }, r.prototype._innerSubscribe = function(t) {
+    var e = this, s = this, n = s.hasError, o = s.isStopped, a = s.observers;
+    return n || o ? Pt : (this.currentObservers = null, a.push(t), new et(function() {
+      e.currentObservers = null, dt(a, t);
     }));
-  }, n.prototype._checkFinalizedStatuses = function(e) {
-    var t = this, i = t.hasError, s = t.thrownError, o = t.isStopped;
-    i ? e.error(s) : o && e.complete();
-  }, n.prototype.asObservable = function() {
-    var e = new xe();
-    return e.source = this, e;
-  }, n.create = function(e, t) {
-    return new Te(e, t);
-  }, n;
-}(xe), Te = function(r) {
-  te(n, r);
-  function n(e, t) {
-    var i = r.call(this) || this;
-    return i.destination = e, i.source = t, i;
+  }, r.prototype._checkFinalizedStatuses = function(t) {
+    var e = this, s = e.hasError, n = e.thrownError, o = e.isStopped;
+    s ? t.error(n) : o && t.complete();
+  }, r.prototype.asObservable = function() {
+    var t = new xt();
+    return t.source = this, t;
+  }, r.create = function(t, e) {
+    return new Ot(t, e);
+  }, r;
+}(xt), Ot = function(i) {
+  tt(r, i);
+  function r(t, e) {
+    var s = i.call(this) || this;
+    return s.destination = t, s.source = e, s;
   }
-  return n.prototype.next = function(e) {
-    var t, i;
-    (i = (t = this.destination) === null || t === void 0 ? void 0 : t.next) === null || i === void 0 || i.call(t, e);
-  }, n.prototype.error = function(e) {
-    var t, i;
-    (i = (t = this.destination) === null || t === void 0 ? void 0 : t.error) === null || i === void 0 || i.call(t, e);
-  }, n.prototype.complete = function() {
-    var e, t;
-    (t = (e = this.destination) === null || e === void 0 ? void 0 : e.complete) === null || t === void 0 || t.call(e);
-  }, n.prototype._subscribe = function(e) {
-    var t, i;
-    return (i = (t = this.source) === null || t === void 0 ? void 0 : t.subscribe(e)) !== null && i !== void 0 ? i : Re;
-  }, n;
-}(De);
-class ke extends De {
+  return r.prototype.next = function(t) {
+    var e, s;
+    (s = (e = this.destination) === null || e === void 0 ? void 0 : e.next) === null || s === void 0 || s.call(e, t);
+  }, r.prototype.error = function(t) {
+    var e, s;
+    (s = (e = this.destination) === null || e === void 0 ? void 0 : e.error) === null || s === void 0 || s.call(e, t);
+  }, r.prototype.complete = function() {
+    var t, e;
+    (e = (t = this.destination) === null || t === void 0 ? void 0 : t.complete) === null || e === void 0 || e.call(t);
+  }, r.prototype._subscribe = function(t) {
+    var e, s;
+    return (s = (e = this.source) === null || e === void 0 ? void 0 : e.subscribe(t)) !== null && s !== void 0 ? s : Pt;
+  }, r;
+}(It);
+class jt extends It {
   constructor() {
-    super(), this.pipe0 = super.pipe, this.pipe = (n) => {
-      let e = this.pipe0(n);
-      return e.subscribe0 = e.subscribe, e.subscribe = (t) => {
-        if (!t.hasOwnProperty("next"))
+    super(), this.pipe0 = super.pipe, this.pipe = (r) => {
+      let t = this.pipe0(r);
+      return t.subscribe0 = t.subscribe, t.subscribe = (e) => {
+        if (!e.hasOwnProperty("next"))
           throw "no exist next! in subscribe({ ... })";
-        return e.subscribe0({
-          next: (i) => t.next(i),
-          complete: t.complete || void 0,
-          error: t.complete || void 0
+        return t.subscribe0({
+          next: (s) => e.next(s),
+          complete: e.complete || void 0,
+          error: e.complete || void 0
         });
-      }, e;
+      }, t;
     };
   }
 }
-function y(r) {
-  return `Minified Redux error #${r}; visit https://redux.js.org/Errors?code=${r} for the full message or use the non-minified dev environment for full errors. `;
+function p(i) {
+  return `Minified Redux error #${i}; visit https://redux.js.org/Errors?code=${i} for the full message or use the non-minified dev environment for full errors. `;
 }
-var tt = typeof Symbol == "function" && Symbol.observable || "@@observable", Ne = tt, se = () => Math.random().toString(36).substring(7).split("").join("."), rt = {
-  INIT: `@@redux/INIT${/* @__PURE__ */ se()}`,
-  REPLACE: `@@redux/REPLACE${/* @__PURE__ */ se()}`,
-  PROBE_UNKNOWN_ACTION: () => `@@redux/PROBE_UNKNOWN_ACTION${se()}`
-}, A = rt;
-function Ue(r) {
-  if (typeof r != "object" || r === null)
+var Qt = typeof Symbol == "function" && Symbol.observable || "@@observable", Tt = Qt, st = () => Math.random().toString(36).substring(7).split("").join("."), Zt = {
+  INIT: `@@redux/INIT${/* @__PURE__ */ st()}`,
+  REPLACE: `@@redux/REPLACE${/* @__PURE__ */ st()}`,
+  PROBE_UNKNOWN_ACTION: () => `@@redux/PROBE_UNKNOWN_ACTION${st()}`
+}, Z = Zt;
+function te(i) {
+  if (typeof i != "object" || i === null)
     return !1;
-  let n = r;
-  for (; Object.getPrototypeOf(n) !== null; )
-    n = Object.getPrototypeOf(n);
-  return Object.getPrototypeOf(r) === n || Object.getPrototypeOf(r) === null;
+  let r = i;
+  for (; Object.getPrototypeOf(r) !== null; )
+    r = Object.getPrototypeOf(r);
+  return Object.getPrototypeOf(i) === r || Object.getPrototypeOf(i) === null;
 }
-function nt(r) {
-  if (r === void 0)
-    return "undefined";
-  if (r === null)
-    return "null";
-  const n = typeof r;
-  switch (n) {
-    case "boolean":
-    case "string":
-    case "number":
-    case "symbol":
-    case "function":
-      return n;
+function Ct(i, r, t) {
+  if (typeof i != "function")
+    throw new Error(p(2));
+  if (typeof r == "function" && typeof t == "function" || typeof t == "function" && typeof arguments[3] == "function")
+    throw new Error(p(0));
+  if (typeof r == "function" && typeof t > "u" && (t = r, r = void 0), typeof t < "u") {
+    if (typeof t != "function")
+      throw new Error(p(1));
+    return t(Ct)(i, r);
   }
-  if (Array.isArray(r))
-    return "array";
-  if (ot(r))
-    return "date";
-  if (st(r))
-    return "error";
-  const e = it(r);
-  switch (e) {
-    case "Symbol":
-    case "Promise":
-    case "WeakMap":
-    case "WeakSet":
-    case "Map":
-    case "Set":
-      return e;
-  }
-  return Object.prototype.toString.call(r).slice(8, -1).toLowerCase().replace(/\s/g, "");
-}
-function it(r) {
-  return typeof r.constructor == "function" ? r.constructor.name : null;
-}
-function st(r) {
-  return r instanceof Error || typeof r.message == "string" && r.constructor && typeof r.constructor.stackTraceLimit == "number";
-}
-function ot(r) {
-  return r instanceof Date ? !0 : typeof r.toDateString == "function" && typeof r.getDate == "function" && typeof r.setDate == "function";
-}
-function x(r) {
-  let n = typeof r;
-  return process.env.NODE_ENV !== "production" && (n = nt(r)), n;
-}
-function Me(r, n, e) {
-  if (typeof r != "function")
-    throw new Error(process.env.NODE_ENV === "production" ? y(2) : `Expected the root reducer to be a function. Instead, received: '${x(r)}'`);
-  if (typeof n == "function" && typeof e == "function" || typeof e == "function" && typeof arguments[3] == "function")
-    throw new Error(process.env.NODE_ENV === "production" ? y(0) : "It looks like you are passing several store enhancers to createStore(). This is not supported. Instead, compose them together to a single function. See https://redux.js.org/tutorials/fundamentals/part-4-store#creating-a-store-with-enhancers for an example.");
-  if (typeof n == "function" && typeof e > "u" && (e = n, n = void 0), typeof e < "u") {
-    if (typeof e != "function")
-      throw new Error(process.env.NODE_ENV === "production" ? y(1) : `Expected the enhancer to be a function. Instead, received: '${x(e)}'`);
-    return e(Me)(r, n);
-  }
-  let t = r, i = n, s = /* @__PURE__ */ new Map(), o = s, u = 0, a = !1;
+  let e = i, s = r, n = /* @__PURE__ */ new Map(), o = n, a = 0, u = !1;
   function c() {
-    o === s && (o = /* @__PURE__ */ new Map(), s.forEach((h, $) => {
-      o.set($, h);
+    o === n && (o = /* @__PURE__ */ new Map(), n.forEach((b, S) => {
+      o.set(S, b);
     }));
   }
-  function g() {
-    if (a)
-      throw new Error(process.env.NODE_ENV === "production" ? y(3) : "You may not call store.getState() while the reducer is executing. The reducer has already received the state as an argument. Pass it down from the top reducer instead of reading it from the store.");
-    return i;
+  function v() {
+    if (u)
+      throw new Error(p(3));
+    return s;
   }
-  function f(h) {
-    if (typeof h != "function")
-      throw new Error(process.env.NODE_ENV === "production" ? y(4) : `Expected the listener to be a function. Instead, received: '${x(h)}'`);
-    if (a)
-      throw new Error(process.env.NODE_ENV === "production" ? y(5) : "You may not call store.subscribe() while the reducer is executing. If you would like to be notified after the store has been updated, subscribe from a component and invoke store.getState() in the callback to access the latest state. See https://redux.js.org/api/store#subscribelistener for more details.");
-    let $ = !0;
+  function f(b) {
+    if (typeof b != "function")
+      throw new Error(p(4));
+    if (u)
+      throw new Error(p(5));
+    let S = !0;
     c();
-    const T = u++;
-    return o.set(T, h), function() {
-      if ($) {
-        if (a)
-          throw new Error(process.env.NODE_ENV === "production" ? y(6) : "You may not unsubscribe from a store listener while the reducer is executing. See https://redux.js.org/api/store#subscribelistener for more details.");
-        $ = !1, c(), o.delete(T), s = null;
+    const T = a++;
+    return o.set(T, b), function() {
+      if (S) {
+        if (u)
+          throw new Error(p(6));
+        S = !1, c(), o.delete(T), n = null;
       }
     };
   }
-  function m(h) {
-    if (!Ue(h))
-      throw new Error(process.env.NODE_ENV === "production" ? y(7) : `Actions must be plain objects. Instead, the actual type was: '${x(h)}'. You may need to add middleware to your store setup to handle dispatching other values, such as 'redux-thunk' to handle dispatching functions. See https://redux.js.org/tutorials/fundamentals/part-4-store#middleware and https://redux.js.org/tutorials/fundamentals/part-6-async-logic#using-the-redux-thunk-middleware for examples.`);
-    if (typeof h.type > "u")
-      throw new Error(process.env.NODE_ENV === "production" ? y(8) : 'Actions may not have an undefined "type" property. You may have misspelled an action type string constant.');
-    if (typeof h.type != "string")
-      throw new Error(process.env.NODE_ENV === "production" ? y(17) : `Action "type" property must be a string. Instead, the actual type was: '${x(h.type)}'. Value was: '${h.type}' (stringified)`);
-    if (a)
-      throw new Error(process.env.NODE_ENV === "production" ? y(9) : "Reducers may not dispatch actions.");
+  function w(b) {
+    if (!te(b))
+      throw new Error(p(7));
+    if (typeof b.type > "u")
+      throw new Error(p(8));
+    if (typeof b.type != "string")
+      throw new Error(p(17));
+    if (u)
+      throw new Error(p(9));
     try {
-      a = !0, i = t(i, h);
+      u = !0, s = e(s, b);
     } finally {
-      a = !1;
+      u = !1;
     }
-    return (s = o).forEach((T) => {
+    return (n = o).forEach((T) => {
       T();
-    }), h;
+    }), b;
   }
-  function E(h) {
-    if (typeof h != "function")
-      throw new Error(process.env.NODE_ENV === "production" ? y(10) : `Expected the nextReducer to be a function. Instead, received: '${x(h)}`);
-    t = h, m({
-      type: A.REPLACE
+  function $(b) {
+    if (typeof b != "function")
+      throw new Error(p(10));
+    e = b, w({
+      type: Z.REPLACE
     });
   }
-  function R() {
-    const h = f;
+  function O() {
+    const b = f;
     return {
       /**
        * The minimal observable subscription method.
@@ -614,122 +569,95 @@ function Me(r, n, e) {
        * be used to unsubscribe the observable from the store, and prevent further
        * emission of values from the observable.
        */
-      subscribe($) {
-        if (typeof $ != "object" || $ === null)
-          throw new Error(process.env.NODE_ENV === "production" ? y(11) : `Expected the observer to be an object. Instead, received: '${x($)}'`);
+      subscribe(S) {
+        if (typeof S != "object" || S === null)
+          throw new Error(p(11));
         function T() {
-          const _e = $;
-          _e.next && _e.next(g());
+          const gt = S;
+          gt.next && gt.next(v());
         }
         return T(), {
-          unsubscribe: h(T)
+          unsubscribe: b(T)
         };
       },
-      [Ne]() {
+      [Tt]() {
         return this;
       }
     };
   }
-  return m({
-    type: A.INIT
+  return w({
+    type: Z.INIT
   }), {
-    dispatch: m,
+    dispatch: w,
     subscribe: f,
-    getState: g,
-    replaceReducer: E,
-    [Ne]: R
+    getState: v,
+    replaceReducer: $,
+    [Tt]: O
   };
 }
-function Ce(r, n, e) {
-  return Me(r, n, e);
+function Mt(i, r, t) {
+  return Ct(i, r, t);
 }
-function Ae(r) {
-  typeof console < "u" && typeof console.error == "function" && console.error(r);
-  try {
-    throw new Error(r);
-  } catch {
-  }
-}
-function ut(r, n, e, t) {
-  const i = Object.keys(n), s = e && e.type === A.INIT ? "preloadedState argument passed to createStore" : "previous state received by the reducer";
-  if (i.length === 0)
-    return "Store does not have a valid reducer. Make sure the argument passed to combineReducers is an object whose values are reducers.";
-  if (!Ue(r))
-    return `The ${s} has unexpected type of "${x(r)}". Expected argument to be an object with the following keys: "${i.join('", "')}"`;
-  const o = Object.keys(r).filter((u) => !n.hasOwnProperty(u) && !t[u]);
-  if (o.forEach((u) => {
-    t[u] = !0;
-  }), !(e && e.type === A.REPLACE) && o.length > 0)
-    return `Unexpected ${o.length > 1 ? "keys" : "key"} "${o.join('", "')}" found in ${s}. Expected to find one of the known reducer keys instead: "${i.join('", "')}". Unexpected keys will be ignored.`;
-}
-function at(r) {
-  Object.keys(r).forEach((n) => {
-    const e = r[n];
-    if (typeof e(void 0, {
-      type: A.INIT
+function ee(i) {
+  Object.keys(i).forEach((r) => {
+    const t = i[r];
+    if (typeof t(void 0, {
+      type: Z.INIT
     }) > "u")
-      throw new Error(process.env.NODE_ENV === "production" ? y(12) : `The slice reducer for key "${n}" returned undefined during initialization. If the state passed to the reducer is undefined, you must explicitly return the initial state. The initial state may not be undefined. If you don't want to set a value for this reducer, you can use null instead of undefined.`);
-    if (typeof e(void 0, {
-      type: A.PROBE_UNKNOWN_ACTION()
+      throw new Error(p(12));
+    if (typeof t(void 0, {
+      type: Z.PROBE_UNKNOWN_ACTION()
     }) > "u")
-      throw new Error(process.env.NODE_ENV === "production" ? y(13) : `The slice reducer for key "${n}" returned undefined when probed with a random type. Don't try to handle '${A.INIT}' or other actions in "redux/*" namespace. They are considered private. Instead, you must return the current state for any unknown actions, unless it is undefined, in which case you must return the initial state, regardless of the action type. The initial state may not be undefined, but can be null.`);
+      throw new Error(p(13));
   });
 }
-function N(r) {
-  const n = Object.keys(r), e = {};
-  for (let o = 0; o < n.length; o++) {
-    const u = n[o];
-    process.env.NODE_ENV !== "production" && typeof r[u] > "u" && Ae(`No reducer provided for key "${u}"`), typeof r[u] == "function" && (e[u] = r[u]);
+function A(i) {
+  const r = Object.keys(i), t = {};
+  for (let n = 0; n < r.length; n++) {
+    const o = r[n];
+    typeof i[o] == "function" && (t[o] = i[o]);
   }
-  const t = Object.keys(e);
-  let i;
-  process.env.NODE_ENV !== "production" && (i = {});
+  const e = Object.keys(t);
   let s;
   try {
-    at(e);
-  } catch (o) {
-    s = o;
+    ee(t);
+  } catch (n) {
+    s = n;
   }
-  return function(u = {}, a) {
+  return function(o = {}, a) {
     if (s)
       throw s;
-    if (process.env.NODE_ENV !== "production") {
-      const f = ut(u, e, a, i);
-      f && Ae(f);
+    let u = !1;
+    const c = {};
+    for (let v = 0; v < e.length; v++) {
+      const f = e[v], w = t[f], $ = o[f], O = w($, a);
+      if (typeof O > "u")
+        throw a && a.type, new Error(p(14));
+      c[f] = O, u = u || O !== $;
     }
-    let c = !1;
-    const g = {};
-    for (let f = 0; f < t.length; f++) {
-      const m = t[f], E = e[m], R = u[m], v = E(R, a);
-      if (typeof v > "u") {
-        const h = a && a.type;
-        throw new Error(process.env.NODE_ENV === "production" ? y(14) : `When called with an action of type ${h ? `"${String(h)}"` : "(unknown type)"}, the slice reducer for key "${m}" returned undefined. To ignore an action, you must explicitly return the previous state. If you want this reducer to hold no value, you can return null instead of undefined.`);
-      }
-      g[m] = v, c = c || v !== R;
-    }
-    return c = c || t.length !== Object.keys(u).length, c ? g : u;
+    return u = u || e.length !== Object.keys(o).length, u ? c : o;
   };
 }
-function Ve(...r) {
-  return r.length === 0 ? (n) => n : r.length === 1 ? r[0] : r.reduce((n, e) => (...t) => n(e(...t)));
+function Nt(...i) {
+  return i.length === 0 ? (r) => r : i.length === 1 ? i[0] : i.reduce((r, t) => (...e) => r(t(...e)));
 }
-function ct(...r) {
-  return (n) => (e, t) => {
-    const i = n(e, t);
-    let s = () => {
-      throw new Error(process.env.NODE_ENV === "production" ? y(15) : "Dispatching while constructing your middleware is not allowed. Other middleware would not be applied to this dispatch.");
+function re(...i) {
+  return (r) => (t, e) => {
+    const s = r(t, e);
+    let n = () => {
+      throw new Error(p(15));
     };
     const o = {
-      getState: i.getState,
-      dispatch: (a, ...c) => s(a, ...c)
-    }, u = r.map((a) => a(o));
-    return s = Ve(...u)(i.dispatch), {
-      ...i,
-      dispatch: s
+      getState: s.getState,
+      dispatch: (u, ...c) => n(u, ...c)
+    }, a = i.map((u) => u(o));
+    return n = Nt(...a)(s.dispatch), {
+      ...s,
+      dispatch: n
     };
   };
 }
-const I = {
+const R = {
   UNDO: "@@redux-undo/UNDO",
   REDO: "@@redux-undo/REDO",
   JUMP_TO_FUTURE: "@@redux-undo/JUMP_TO_FUTURE",
@@ -737,35 +665,35 @@ const I = {
   JUMP: "@@redux-undo/JUMP",
   CLEAR_HISTORY: "@@redux-undo/CLEAR_HISTORY"
 };
-function ye(r, n = []) {
-  return Array.isArray(r) ? r : typeof r == "string" ? [r] : n;
+function pt(i, r = []) {
+  return Array.isArray(i) ? i : typeof i == "string" ? [i] : r;
 }
-function lt(r) {
-  return typeof r.present < "u" && typeof r.future < "u" && typeof r.past < "u" && Array.isArray(r.future) && Array.isArray(r.past);
+function ie(i) {
+  return typeof i.present < "u" && typeof i.future < "u" && typeof i.past < "u" && Array.isArray(i.future) && Array.isArray(i.past);
 }
-function ve(r) {
-  const n = ye(r);
-  return (e) => n.indexOf(e.type) >= 0;
+function yt(i) {
+  const r = pt(i);
+  return (t) => r.indexOf(t.type) >= 0;
 }
-function P(r, n, e, t = null) {
+function P(i, r, t, e = null) {
   return {
-    past: r,
-    present: n,
-    future: e,
-    group: t,
-    _latestUnfiltered: n,
-    index: r.length,
-    limit: r.length + e.length + 1
+    past: i,
+    present: r,
+    future: t,
+    group: e,
+    _latestUnfiltered: r,
+    index: i.length,
+    limit: i.length + t.length + 1
   };
 }
-let ne, _;
-const be = {
+let rt, g;
+const vt = {
   prevState: "#9E9E9E",
   action: "#03A9F4",
   nextState: "#4CAF50"
 };
-function ht() {
-  _ = {
+function se() {
+  g = {
     header: [],
     prev: [],
     action: [],
@@ -773,641 +701,641 @@ function ht() {
     msgs: []
   };
 }
-function dt() {
-  const { header: r, prev: n, next: e, action: t, msgs: i } = _;
-  console.group ? (console.groupCollapsed(...r), console.log(...n), console.log(...t), console.log(...e), console.log(...i), console.groupEnd()) : (console.log(...r), console.log(...n), console.log(...t), console.log(...e), console.log(...i));
+function ne() {
+  const { header: i, prev: r, next: t, action: e, msgs: s } = g;
+  console.group ? (console.groupCollapsed(...i), console.log(...r), console.log(...e), console.log(...t), console.log(...s), console.groupEnd()) : (console.log(...i), console.log(...r), console.log(...e), console.log(...t), console.log(...s));
 }
-function ge(r, n, e) {
+function bt(i, r, t) {
   return [
-    `%c${r}`,
-    `color: ${n}; font-weight: bold`,
-    e
+    `%c${i}`,
+    `color: ${r}; font-weight: bold`,
+    t
   ];
 }
-function pt(r, n) {
-  ht(), ne && (console.group ? (_.header = ["%credux-undo", "font-style: italic", "action", r.type], _.action = ge("action", be.action, r), _.prev = ge("prev history", be.prevState, n)) : (_.header = ["redux-undo action", r.type], _.action = ["action", r], _.prev = ["prev history", n]));
+function oe(i, r) {
+  se(), rt && (console.group ? (g.header = ["%credux-undo", "font-style: italic", "action", i.type], g.action = bt("action", vt.action, i), g.prev = bt("prev history", vt.prevState, r)) : (g.header = ["redux-undo action", i.type], g.action = ["action", i], g.prev = ["prev history", r]));
 }
-function w(r) {
-  ne && (console.group ? _.next = ge("next history", be.nextState, r) : _.next = ["next history", r], dt());
+function m(i) {
+  rt && (console.group ? g.next = bt("next history", vt.nextState, i) : g.next = ["next history", i], ne());
 }
-function b(...r) {
-  ne && (_.msgs = _.msgs.concat([...r, `
+function y(...i) {
+  rt && (g.msgs = g.msgs.concat([...i, `
 `]));
 }
-function ft(r) {
-  ne = r;
+function ue(i) {
+  rt = i;
 }
-function oe(r, n) {
-  const e = P([], r, []);
-  return n && (e._latestUnfiltered = null), e;
+function nt(i, r) {
+  const t = P([], i, []);
+  return r && (t._latestUnfiltered = null), t;
 }
-function yt(r, n, e, t) {
-  const i = r.past.length + 1;
-  b("inserting", n), b("new free: ", e - i);
-  const { past: s, _latestUnfiltered: o } = r, u = e && e <= i, a = s.slice(u ? 1 : 0), c = o != null ? [
-    ...a,
+function ae(i, r, t, e) {
+  const s = i.past.length + 1;
+  y("inserting", r), y("new free: ", t - s);
+  const { past: n, _latestUnfiltered: o } = i, a = t && t <= s, u = n.slice(a ? 1 : 0), c = o != null ? [
+    ...u,
     o
-  ] : a;
-  return P(c, n, [], t);
+  ] : u;
+  return P(c, r, [], e);
 }
-function Fe(r, n) {
-  if (n < 0 || n >= r.future.length)
-    return r;
-  const { past: e, future: t, _latestUnfiltered: i } = r, s = [...e, i, ...t.slice(0, n)], o = t[n], u = t.slice(n + 1);
-  return P(s, o, u);
+function kt(i, r) {
+  if (r < 0 || r >= i.future.length)
+    return i;
+  const { past: t, future: e, _latestUnfiltered: s } = i, n = [...t, s, ...e.slice(0, r)], o = e[r], a = e.slice(r + 1);
+  return P(n, o, a);
 }
-function Le(r, n) {
-  if (n < 0 || n >= r.past.length)
-    return r;
-  const { past: e, future: t, _latestUnfiltered: i } = r, s = e.slice(0, n), o = [...e.slice(n + 1), i, ...t], u = e[n];
-  return P(s, u, o);
+function Ft(i, r) {
+  if (r < 0 || r >= i.past.length)
+    return i;
+  const { past: t, future: e, _latestUnfiltered: s } = i, n = t.slice(0, r), o = [...t.slice(r + 1), s, ...e], a = t[r];
+  return P(n, a, o);
 }
-function ue(r, n) {
-  return n > 0 ? Fe(r, n - 1) : n < 0 ? Le(r, r.past.length + n) : r;
+function ot(i, r) {
+  return r > 0 ? kt(i, r - 1) : r < 0 ? Ft(i, i.past.length + r) : i;
 }
-function vt(r, n) {
-  return n.indexOf(r) > -1 ? r : !r;
+function ce(i, r) {
+  return r.indexOf(i) > -1 ? i : !i;
 }
-function me(r, n = {}) {
-  ft(n.debug);
-  const e = {
+function _t(i, r = {}) {
+  ue(r.debug);
+  const t = {
     limit: void 0,
     filter: () => !0,
     groupBy: () => null,
-    undoType: I.UNDO,
-    redoType: I.REDO,
-    jumpToPastType: I.JUMP_TO_PAST,
-    jumpToFutureType: I.JUMP_TO_FUTURE,
-    jumpType: I.JUMP,
+    undoType: R.UNDO,
+    redoType: R.REDO,
+    jumpToPastType: R.JUMP_TO_PAST,
+    jumpToFutureType: R.JUMP_TO_FUTURE,
+    jumpType: R.JUMP,
     neverSkipReducer: !1,
     ignoreInitialState: !1,
     syncFilter: !1,
-    ...n,
-    initTypes: ye(n.initTypes, ["@@redux-undo/INIT"]),
-    clearHistoryType: ye(
-      n.clearHistoryType,
-      [I.CLEAR_HISTORY]
+    ...r,
+    initTypes: pt(r.initTypes, ["@@redux-undo/INIT"]),
+    clearHistoryType: pt(
+      r.clearHistoryType,
+      [R.CLEAR_HISTORY]
     )
-  }, t = e.neverSkipReducer ? (s, o, ...u) => ({
-    ...s,
-    present: r(s.present, o, ...u)
-  }) : (s) => s;
-  let i;
-  return (s = i, o = {}, ...u) => {
-    pt(o, s);
-    let a = s;
-    if (!i)
-      if (b("history is uninitialized"), s === void 0) {
-        const g = r(s, { type: "@@redux-undo/CREATE_HISTORY" }, ...u);
-        return a = oe(
-          g,
-          e.ignoreInitialState
-        ), b("do not set initialState on probe actions"), w(a), a;
+  }, e = t.neverSkipReducer ? (n, o, ...a) => ({
+    ...n,
+    present: i(n.present, o, ...a)
+  }) : (n) => n;
+  let s;
+  return (n = s, o = {}, ...a) => {
+    oe(o, n);
+    let u = n;
+    if (!s)
+      if (y("history is uninitialized"), n === void 0) {
+        const v = i(n, { type: "@@redux-undo/CREATE_HISTORY" }, ...a);
+        return u = nt(
+          v,
+          t.ignoreInitialState
+        ), y("do not set initialState on probe actions"), m(u), u;
       } else
-        lt(s) ? (a = i = e.ignoreInitialState ? s : P(
-          s.past,
-          s.present,
-          s.future
-        ), b(
+        ie(n) ? (u = s = t.ignoreInitialState ? n : P(
+          n.past,
+          n.present,
+          n.future
+        ), y(
           "initialHistory initialized: initialState is a history",
-          i
-        )) : (a = i = oe(
-          s,
-          e.ignoreInitialState
-        ), b(
+          s
+        )) : (u = s = nt(
+          n,
+          t.ignoreInitialState
+        ), y(
           "initialHistory initialized: initialState is not a history",
-          i
+          s
         ));
     let c;
     switch (o.type) {
       case void 0:
-        return a;
-      case e.undoType:
-        return c = ue(a, -1), b("perform undo"), w(c), t(c, o, ...u);
-      case e.redoType:
-        return c = ue(a, 1), b("perform redo"), w(c), t(c, o, ...u);
-      case e.jumpToPastType:
-        return c = Le(a, o.index), b(`perform jumpToPast to ${o.index}`), w(c), t(c, o, ...u);
-      case e.jumpToFutureType:
-        return c = Fe(a, o.index), b(`perform jumpToFuture to ${o.index}`), w(c), t(c, o, ...u);
-      case e.jumpType:
-        return c = ue(a, o.index), b(`perform jump to ${o.index}`), w(c), t(c, o, ...u);
-      case vt(o.type, e.clearHistoryType):
-        return c = oe(a.present, e.ignoreInitialState), b("perform clearHistory"), w(c), t(c, o, ...u);
+        return u;
+      case t.undoType:
+        return c = ot(u, -1), y("perform undo"), m(c), e(c, o, ...a);
+      case t.redoType:
+        return c = ot(u, 1), y("perform redo"), m(c), e(c, o, ...a);
+      case t.jumpToPastType:
+        return c = Ft(u, o.index), y(`perform jumpToPast to ${o.index}`), m(c), e(c, o, ...a);
+      case t.jumpToFutureType:
+        return c = kt(u, o.index), y(`perform jumpToFuture to ${o.index}`), m(c), e(c, o, ...a);
+      case t.jumpType:
+        return c = ot(u, o.index), y(`perform jump to ${o.index}`), m(c), e(c, o, ...a);
+      case ce(o.type, t.clearHistoryType):
+        return c = nt(u.present, t.ignoreInitialState), y("perform clearHistory"), m(c), e(c, o, ...a);
       default:
-        if (c = r(
-          a.present,
+        if (c = i(
+          u.present,
           o,
-          ...u
-        ), e.initTypes.some((f) => f === o.type))
-          return b("reset history due to init action"), w(i), i;
-        if (a._latestUnfiltered === c)
-          return a;
-        if (typeof e.filter == "function" && !e.filter(
+          ...a
+        ), t.initTypes.some((f) => f === o.type))
+          return y("reset history due to init action"), m(s), s;
+        if (u._latestUnfiltered === c)
+          return u;
+        if (typeof t.filter == "function" && !t.filter(
           o,
           c,
-          a
+          u
         )) {
           const f = P(
-            a.past,
+            u.past,
             c,
-            a.future,
-            a.group
+            u.future,
+            u.group
           );
-          return e.syncFilter || (f._latestUnfiltered = a._latestUnfiltered), b("filter ignored action, not storing it in past"), w(f), f;
+          return t.syncFilter || (f._latestUnfiltered = u._latestUnfiltered), y("filter ignored action, not storing it in past"), m(f), f;
         }
-        const g = e.groupBy(o, c, a);
-        if (g != null && g === a.group) {
+        const v = t.groupBy(o, c, u);
+        if (v != null && v === u.group) {
           const f = P(
-            a.past,
+            u.past,
             c,
-            a.future,
-            a.group
+            u.future,
+            u.group
           );
-          return b("groupBy grouped the action with the previous action"), w(f), f;
+          return y("groupBy grouped the action with the previous action"), m(f), f;
         }
-        return a = yt(a, c, e.limit, g), b("inserted new state into history"), w(a), a;
+        return u = ae(u, c, t.limit, v), y("inserted new state into history"), m(u), u;
     }
   };
 }
-class bt {
-  constructor(n) {
+class le {
+  constructor(r) {
   }
 }
-class gt {
+class he {
 }
-class ae extends bt {
-  constructor(n) {
-    super(n), this.next = null, this.prev = null, this.value = n;
+class ut extends le {
+  constructor(r) {
+    super(r), this.next = null, this.prev = null, this.value = r;
   }
 }
-class mt extends gt {
+class de extends he {
   constructor() {
     super(...arguments), this.head = null, this.tail = null;
   }
-  push(n) {
-    const e = new ae(n);
-    return this.head ? (e.prev = this.tail, this.tail && (this.tail.next = e), this.tail = e) : (this.head = e, this.tail = e), this;
+  push(r) {
+    const t = new ut(r);
+    return this.head ? (t.prev = this.tail, this.tail && (this.tail.next = t), this.tail = t) : (this.head = t, this.tail = t), this;
   }
-  unshift(n) {
-    const e = new ae(n);
-    return this.head ? (e.next = this.head, this.head.prev = e, this.head = e) : (this.head = e, this.tail = e), this;
+  unshift(r) {
+    const t = new ut(r);
+    return this.head ? (t.next = this.head, this.head.prev = t, this.head = t) : (this.head = t, this.tail = t), this;
   }
-  insertAt(n, e) {
-    if (n <= 0) return this.unshift(e);
-    let t = this.head, i = 0;
-    for (; t && i < n; )
-      t = t.next, i++;
-    const s = new ae(e);
-    if (t)
-      s.prev = t.prev, s.next = t, t.prev && (t.prev.next = s), t.prev = s, t === this.head && (this.head = s);
+  insertAt(r, t) {
+    if (r <= 0) return this.unshift(t);
+    let e = this.head, s = 0;
+    for (; e && s < r; )
+      e = e.next, s++;
+    const n = new ut(t);
+    if (e)
+      n.prev = e.prev, n.next = e, e.prev && (e.prev.next = n), e.prev = n, e === this.head && (this.head = n);
     else
-      return this.push(e);
+      return this.push(t);
     return this;
   }
-  removeAt(n) {
-    if (n < 0) return this;
-    let e = this.head, t = 0;
-    for (; e && t < n; )
-      e = e.next, t++;
-    return e ? (e.prev ? e.prev.next = e.next : this.head = e.next, e.next ? e.next.prev = e.prev : this.tail = e.prev, this) : this;
+  removeAt(r) {
+    if (r < 0) return this;
+    let t = this.head, e = 0;
+    for (; t && e < r; )
+      t = t.next, e++;
+    return t ? (t.prev ? t.prev.next = t.next : this.head = t.next, t.next ? t.next.prev = t.prev : this.tail = t.prev, this) : this;
   }
   pop() {
     if (!this.tail) return { value: null, list: this };
-    const n = this.tail.value;
-    return this.tail.prev ? (this.tail = this.tail.prev, this.tail.next = null) : (this.head = null, this.tail = null), { value: n, list: this };
+    const r = this.tail.value;
+    return this.tail.prev ? (this.tail = this.tail.prev, this.tail.next = null) : (this.head = null, this.tail = null), { value: r, list: this };
   }
   shift() {
     if (!this.head) return { value: null, list: this };
-    const n = this.head.value;
-    return this.head.next ? (this.head = this.head.next, this.head.prev = null) : (this.head = null, this.tail = null), { value: n, list: this };
+    const r = this.head.value;
+    return this.head.next ? (this.head = this.head.next, this.head.prev = null) : (this.head = null, this.tail = null), { value: r, list: this };
   }
-  find(n) {
-    let e = this.head, t = 0;
-    for (; e; ) {
-      if (n(e.value, t)) return e.value;
-      e = e.next, t++;
+  find(r) {
+    let t = this.head, e = 0;
+    for (; t; ) {
+      if (r(t.value, e)) return t.value;
+      t = t.next, e++;
     }
     return null;
   }
-  findIndex(n) {
-    let e = this.head, t = 0;
-    for (; e; ) {
-      if (n(e.value, t)) return t;
-      e = e.next, t++;
+  findIndex(r) {
+    let t = this.head, e = 0;
+    for (; t; ) {
+      if (r(t.value, e)) return e;
+      t = t.next, e++;
     }
     return -1;
   }
   toArray() {
-    const n = [];
-    let e = this.head;
-    for (; e; )
-      n.push(e.value), e = e.next;
-    return n;
+    const r = [];
+    let t = this.head;
+    for (; t; )
+      r.push(t.value), t = t.next;
+    return r;
   }
   getValue() {
     return this.head ? this.head.value : null;
   }
 }
-class _t {
+class fe {
   constructor() {
     this.reducers = {}, this.recordReducers = {}, this.actions = /* @__PURE__ */ new Map(), this.recordActions = /* @__PURE__ */ new Map(), this.observables = /* @__PURE__ */ new Map(), this.methods = /* @__PURE__ */ new Map(), this.parameters = /* @__PURE__ */ new Map();
   }
 }
-var j;
-class wt extends _t {
+var U;
+class pe extends fe {
   constructor() {
     super();
-    d(this, j);
+    h(this, U);
     this.setMiddleware = () => {
       if (!this.store)
-        return (e) => (t) => (i) => {
-          const s = i.type.split("_")[0];
+        return (t) => (e) => (s) => {
+          const n = s.type.split("_")[0];
           let o = {
-            name: s,
-            state: this.store.getState()[s],
-            action: i
+            name: n,
+            state: this.store.getState()[n],
+            action: s
           };
-          i.dispatched = {
+          s.dispatched = {
             name: o.name,
             state: o.state
           };
-          let u;
-          if (!(i.type.includes("_undo") || i.type.includes("_redo"))) {
-            if (this.observables.has(`${s}_before`))
-              this.observables.get(`${s}_before`).next(i);
-            else if (this.methods.has(`${s}_before`)) {
-              const a = this.methods.get(`${s}_before`);
-              a && (u = l(this, j).call(this, a(i)), u.dispatched = i.dispatched);
+          let a;
+          if (!(s.type.includes("_undo") || s.type.includes("_redo"))) {
+            if (this.observables.has(`${n}_before`))
+              this.observables.get(`${n}_before`).next(s);
+            else if (this.methods.has(`${n}_before`)) {
+              const u = this.methods.get(`${n}_before`);
+              u && (a = l(this, U).call(this, u(s)), a.dispatched = s.dispatched);
             }
           }
-          return this.store.dispatched.push(o), u && (i = u), t(i);
+          return this.store.dispatched.push(o), a && (s = a), e(s);
         };
-    }, p(this, j, (e) => {
-      if (!e.hasOwnProperty("type")) throw "No exist action.type property.";
-      if (typeof e.type != "string") throw "action.type is not 'string' type.";
-      if (!e.hasOwnProperty("value")) throw "No exist action.value property.";
-      return e;
+    }, d(this, U, (t) => {
+      if (!t.hasOwnProperty("type")) throw "No exist action.type property.";
+      if (typeof t.type != "string") throw "action.type is not 'string' type.";
+      if (!t.hasOwnProperty("value")) throw "No exist action.value property.";
+      return t;
     });
   }
 }
-j = new WeakMap();
-var D, k, U;
-class $t extends wt {
+U = new WeakMap();
+var I, j, C;
+class ye extends pe {
   constructor() {
     super();
-    d(this, D);
-    d(this, k);
-    d(this, U);
+    h(this, I);
+    h(this, j);
+    h(this, C);
     this.setRecord = () => {
-      l(this, D).call(this), l(this, k).call(this), l(this, U).call(this);
-    }, p(this, D, () => {
-      this.record || (this.record = Ce(
-        N({ start$: (e = {}) => e })
+      l(this, I).call(this), l(this, j).call(this), l(this, C).call(this);
+    }, d(this, I, () => {
+      this.record || (this.record = Mt(
+        A({ start$: (t = {}) => t })
       ));
-    }), p(this, k, () => {
-      this.record.dispatch0 = this.record.dispatch, this.record.dispatched = null, this.record.dispatch = (e) => {
-        const t = e.type.split("_")[0];
-        let i = {
-          name: t,
-          state: this.record.getState()[t],
-          action: e
+    }), d(this, j, () => {
+      this.record.dispatch0 = this.record.dispatch, this.record.dispatched = null, this.record.dispatch = (t) => {
+        const e = t.type.split("_")[0];
+        let s = {
+          name: e,
+          state: this.record.getState()[e],
+          action: t
         };
-        e.dispatched = {
-          name: i.name,
-          state: i.state
-        }, this.record.dispatched = i, this.record.dispatch0(e);
+        t.dispatched = {
+          name: s.name,
+          state: s.state
+        }, this.record.dispatched = s, this.record.dispatch0(t);
       };
-    }), p(this, U, () => {
+    }), d(this, C, () => {
       this.record.subscribe(() => {
         if (this.record.current = this.record.getState(), !this.record.dispatched) return;
-        const e = this.record.dispatched.action.type;
-        if (e.substring(e.length - 5, e.length) === "_undo") {
-          const t = this.record.dispatched.state.past;
-          if (t.length === 0) return;
-          this.store.dispatch({ type: `${this.record.dispatched.name}_undo`, value: t[t.length - 1] });
+        const t = this.record.dispatched.action.type;
+        if (t.substring(t.length - 5, t.length) === "_undo") {
+          const e = this.record.dispatched.state.past;
+          if (e.length === 0) return;
+          this.store.dispatch({ type: `${this.record.dispatched.name}_undo`, value: e[e.length - 1] });
           return;
         }
-        if (e.substring(e.length - 5, e.length) === "_redo") {
-          const t = this.record.dispatched.state.future;
-          if (t.length === 0) return;
-          this.store.dispatch({ type: `${this.record.dispatched.name}_redo`, value: t[0] });
+        if (t.substring(t.length - 5, t.length) === "_redo") {
+          const e = this.record.dispatched.state.future;
+          if (e.length === 0) return;
+          this.store.dispatch({ type: `${this.record.dispatched.name}_redo`, value: e[0] });
           return;
         }
       });
-    }), this.createRecordState = (e) => {
-      let { name: t, initialState: i } = e;
-      if (this.recordReducers.hasOwnProperty(t)) return;
-      let s = Date.now();
-      this.recordActions.set(`${t}_update`, (u, a) => a.value);
-      let o = (u = { value: `${t} created.`, timestamp: s }, a) => {
-        if (o.stateName !== a.type.split("_")[0] || !this.recordActions.has(a.type)) return u;
-        const c = this.recordActions.get(a.type);
-        return c ? c(u, a) : u;
+    }), this.createRecordState = (t) => {
+      let { name: e, initialState: s } = t;
+      if (this.recordReducers.hasOwnProperty(e)) return;
+      let n = Date.now();
+      this.recordActions.set(`${e}_update`, (a, u) => u.value);
+      let o = (a = { value: `${e} created.`, timestamp: n }, u) => {
+        if (o.stateName !== u.type.split("_")[0] || !this.recordActions.has(u.type)) return a;
+        const c = this.recordActions.get(u.type);
+        return c ? c(a, u) : a;
       };
-      o.stateName = t, this.recordReducers[t] = me(o, {
+      o.stateName = e, this.recordReducers[e] = _t(o, {
         limit: 1e3,
-        filter: ve(Array.from(this.recordActions.keys())),
-        undoType: `${t}_undo`,
-        redoType: `${t}_redo`
-      }), this.record.replaceReducer(N(this.recordReducers)), this.store.currentRecord = this.record.getState(), this.record.dispatch({ type: `${t}_update`, value: {
-        value: i == null ? void 0 : i.value,
-        timestamp: s
+        filter: yt(Array.from(this.recordActions.keys())),
+        undoType: `${e}_undo`,
+        redoType: `${e}_redo`
+      }), this.record.replaceReducer(A(this.recordReducers)), this.store.currentRecord = this.record.getState(), this.record.dispatch({ type: `${e}_update`, value: {
+        value: s == null ? void 0 : s.value,
+        timestamp: n
       } });
     };
   }
 }
-D = new WeakMap(), k = new WeakMap(), U = new WeakMap();
-var M, C, V, F, L, H, Y, J, K, B, W, z, X;
-class Et extends $t {
+I = new WeakMap(), j = new WeakMap(), C = new WeakMap();
+var M, N, k, F, D, H, L, J, V, B, Y, K, W;
+class ve extends ye {
   constructor() {
     super();
-    d(this, M);
-    d(this, C);
-    d(this, V);
-    d(this, F);
-    d(this, L);
-    d(this, H);
-    d(this, Y);
-    d(this, J);
-    d(this, K);
-    d(this, B);
-    d(this, W);
-    d(this, z);
-    d(this, X);
-    this.setStore = () => (l(this, M).call(this), l(this, C).call(this), l(this, V).call(this), l(this, L).call(this), l(this, H).call(this), l(this, Y).call(this), l(this, J).call(this), l(this, K).call(this), l(this, B).call(this), l(this, W).call(this), l(this, z).call(this), l(this, X).call(this), this.store), p(this, M, () => {
+    h(this, M);
+    h(this, N);
+    h(this, k);
+    h(this, F);
+    h(this, D);
+    h(this, H);
+    h(this, L);
+    h(this, J);
+    h(this, V);
+    h(this, B);
+    h(this, Y);
+    h(this, K);
+    h(this, W);
+    this.setStore = () => (l(this, M).call(this), l(this, N).call(this), l(this, k).call(this), l(this, D).call(this), l(this, H).call(this), l(this, L).call(this), l(this, J).call(this), l(this, V).call(this), l(this, B).call(this), l(this, Y).call(this), l(this, K).call(this), l(this, W).call(this), this.store), d(this, M, () => {
       if (this.store) return;
-      const e = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Ve;
-      let t = this.store = Ce(
-        N({ start$: (i = {}) => i }),
-        e(ct(this.setMiddleware()))
+      const t = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Nt;
+      let e = this.store = Mt(
+        A({ start$: (s = {}) => s }),
+        t(re(this.setMiddleware()))
       );
-      t.dispatched = new mt(), t.current = t.getState(), t.currentRecord = {};
-    }), p(this, C, () => {
-      let e = this.store;
-      e.subscribe(() => {
-        let t = e.dispatched.shift().value;
-        if (e.current = e.getState(), e.getStateR && (e.currentRecord = e.getStateR()), !t || t.action.type === "initial$_delete" || t.action.type === "history$_update") return;
-        let i = t.action.type;
-        if (i === "history$_undo") {
-          let s = e.current.history$.future[0].value;
-          switch (s.name) {
+      e.dispatched = new de(), e.current = e.getState(), e.currentRecord = {};
+    }), d(this, N, () => {
+      let t = this.store;
+      t.subscribe(() => {
+        let e = t.dispatched.shift().value;
+        if (t.current = t.getState(), t.getStateR && (t.currentRecord = t.getStateR()), !e || e.action.type === "initial$_delete" || e.action.type === "history$_update") return;
+        let s = e.action.type;
+        if (s === "history$_undo") {
+          let n = t.current.history$.future[0].value;
+          switch (n.name) {
             case "initial$":
-              e.remove && e.remove(s.value.name, "undo");
+              t.remove && t.remove(n.value.name, "undo");
               return;
             case "delete$":
-              let o = this.parameters.get(s.value);
+              let o = this.parameters.get(n.value);
               o && this.setValueState(o, "undo");
               return;
             default:
-              this.record.dispatch({ type: `${s.name}_undo` });
+              this.record.dispatch({ type: `${n.name}_undo` });
               return;
           }
         }
-        if (i === "history$_redo") {
-          let s = e.current.history$.present.value;
-          switch (s.name) {
+        if (s === "history$_redo") {
+          let n = t.current.history$.present.value;
+          switch (n.name) {
             case "initial$":
-              let o = this.parameters.get(s.value.name);
+              let o = this.parameters.get(n.value.name);
               o && this.setValueState(o, "redo");
               return;
             case "delete$":
-              e.remove && e.remove(s.value, "redo");
+              t.remove && t.remove(n.value, "redo");
               return;
             default:
-              this.record.dispatch({ type: `${s.name}_redo` });
+              this.record.dispatch({ type: `${n.name}_redo` });
               return;
           }
         }
-        if (i.substring(i.length - 5, i.length) === "_undo") {
-          this.observables.has(`${t.name}_undo`) && this.observables.get(`${t.name}_undo`).next(t.action);
+        if (s.substring(s.length - 5, s.length) === "_undo") {
+          this.observables.has(`${e.name}_undo`) && this.observables.get(`${e.name}_undo`).next(e.action);
           return;
-        } else if (i.substring(i.length - 5, i.length) === "_redo") {
-          this.observables.has(`${t.name}_redo`) && this.observables.get(`${t.name}_redo`).next(t.action);
+        } else if (s.substring(s.length - 5, s.length) === "_redo") {
+          this.observables.has(`${e.name}_redo`) && this.observables.get(`${e.name}_redo`).next(e.action);
           return;
         } else {
-          if (t.name === "initial$" && t.action.isSilent) return;
-          e.dispatch({ type: "history$_update", value: {
-            name: t.name,
-            value: t.action.value
-          } }), this.record.dispatch({ type: `${t.name}_update`, value: {
-            value: t.action.value,
+          if (e.name === "initial$" && e.action.isSilent) return;
+          t.dispatch({ type: "history$_update", value: {
+            name: e.name,
+            value: e.action.value
+          } }), this.record.dispatch({ type: `${e.name}_update`, value: {
+            value: e.action.value,
             timestamp: Date.now()
           } });
         }
-        i.substring(i.length - 7, i.length) === "_update" && t.name !== "initial$" && (this.parameters.get(t.name).inputState = e.current[t.name]), this.observables.has(`${t.name}_after`) && this.observables.get(`${t.name}_after`).next(t.action);
+        s.substring(s.length - 7, s.length) === "_update" && e.name !== "initial$" && (this.parameters.get(e.name).inputState = t.current[e.name]), this.observables.has(`${e.name}_after`) && this.observables.get(`${e.name}_after`).next(e.action);
       });
-    }), p(this, V, () => {
-      this.store.set = (e, t = "value") => {
-        switch (t) {
+    }), d(this, k, () => {
+      this.store.set = (t, e = "value") => {
+        switch (e) {
           case "value":
-            this.setValueState && this.setValueState(e);
+            this.setValueState && this.setValueState(t);
             break;
           case "film":
-            l(this, F).call(this, e.name);
+            l(this, F).call(this, t.name);
             break;
         }
       };
-    }), p(this, F, (e) => {
-      if (e.includes("$"))
+    }), d(this, F, (t) => {
+      if (t.includes("$"))
         throw "State name must not contain '$'. '$' is automatically assigned in state name.";
-      if (e === "initial")
+      if (t === "initial")
         throw "Cannot create 'initial$' state, 'initial$' is system state.";
-      if (e === "history")
+      if (t === "history")
         throw "Cannot create 'history$' state, 'history$' is system state.";
-      const t = (i = { value: `${e}$ created.`, timestamp: Date.now() }, s) => s.type === `${e}$` ? { value: s.value, timestamp: Date.now() } : i;
-      this.reducers[`${e}$`] = me(t, {
+      const e = (s = { value: `${t}$ created.`, timestamp: Date.now() }, n) => n.type === `${t}$` ? { value: n.value, timestamp: Date.now() } : s;
+      this.reducers[`${t}$`] = _t(e, {
         limit: 1e3,
-        filter: ve([`${e}$`]),
-        undoType: `${e}$_undo`,
-        redoType: `${e}$_redo`
-      }), this.store.replaceReducer(N(this.reducers));
-    }), p(this, L, () => {
-      let e = this.store;
-      e.get = (t) => {
-        if (!e.current.hasOwnProperty(t))
-          return console.warn(`no exist property[ ${t} ]`), null;
-        if (t === "initial$") return e.current.initial$;
-        if (t.includes("$")) return {
-          past: e.current[t].past,
-          present: e.current[t].present,
-          future: e.current[t].future
+        filter: yt([`${t}$`]),
+        undoType: `${t}$_undo`,
+        redoType: `${t}$_redo`
+      }), this.store.replaceReducer(A(this.reducers));
+    }), d(this, D, () => {
+      let t = this.store;
+      t.get = (e) => {
+        if (!t.current.hasOwnProperty(e))
+          return console.warn(`no exist property[ ${e} ]`), null;
+        if (e === "initial$") return t.current.initial$;
+        if (e.includes("$")) return {
+          past: t.current[e].past,
+          present: t.current[e].present,
+          future: t.current[e].future
         };
-        if (e.current[t].hasOwnProperty("value"))
-          return e.current[t].value;
+        if (t.current[e].hasOwnProperty("value"))
+          return t.current[e].value;
       };
-    }), p(this, H, () => {
-      let e = this.store;
-      e.update = (t, i) => {
-        if (t.substring(t.length - 1, t.length) === "$")
-          throw `Cannot access ${t}$ state, please access via revert() or replay().`;
-        if (!this.reducers.hasOwnProperty(t)) {
-          console.warn(`no exist property[ ${t} ]`);
+    }), d(this, H, () => {
+      let t = this.store;
+      t.update = (e, s) => {
+        if (e.substring(e.length - 1, e.length) === "$")
+          throw `Cannot access ${e}$ state, please access via revert() or replay().`;
+        if (!this.reducers.hasOwnProperty(e)) {
+          console.warn(`no exist property[ ${e} ]`);
           return;
         }
-        e.dispatch({ type: `${t}_update`, value: i });
+        t.dispatch({ type: `${e}_update`, value: s });
       };
-    }), p(this, Y, () => {
-      let e = this.store;
-      e.capture = (t, i) => {
-        if (t === "initial" || t === "initial$")
+    }), d(this, L, () => {
+      let t = this.store;
+      t.capture = (e, s) => {
+        if (e === "initial" || e === "initial$")
           throw "Cannot access 'initial$' state, 'initial$' is system state.";
-        if (t === "history" || t === "history$")
+        if (e === "history" || e === "history$")
           throw "Cannot access 'history$' state, 'history$' is system state.";
-        if (t.includes("$") || (t += "$"), !e.current.hasOwnProperty(t))
-          return console.warn(`no exist property[ ${t} ]`), null;
-        let s = { type: `${t}`, value: i };
-        e.dispatch(s);
+        if (e.includes("$") || (e += "$"), !t.current.hasOwnProperty(e))
+          return console.warn(`no exist property[ ${e} ]`), null;
+        let n = { type: `${e}`, value: s };
+        t.dispatch(n);
       };
-    }), p(this, J, () => {
-      let e = this.store;
-      e.remove = (t, i) => {
-        if (!this.reducers.hasOwnProperty(t)) {
-          console.warn(`no exist property[ ${t} ]`);
+    }), d(this, J, () => {
+      let t = this.store;
+      t.remove = (e, s) => {
+        if (!this.reducers.hasOwnProperty(e)) {
+          console.warn(`no exist property[ ${e} ]`);
           return;
         }
-        Array.from(this.actions.keys()).forEach((s) => {
-          s.includes(`${t}_`) && this.actions.delete(s);
-        }), Array.from(this.observables.keys()).forEach((s) => {
-          s.includes(`${t}_`) && (this.observables.get(s).unsubscribe(), this.observables.delete(s));
-        }), Array.from(this.methods.keys()).forEach((s) => {
-          s.includes(`${t}_`) && this.methods.delete(s);
-        }), e.dispatch({ type: "initial$_delete", value: { name: t } }), i ? i === "undo" ? this.record.dispatch({ type: `${t}_undo` }) : i === "redo" && this.record.dispatch({ type: `${t}_redo` }) : (e.dispatch({ type: "history$_update", value: {
+        Array.from(this.actions.keys()).forEach((n) => {
+          n.includes(`${e}_`) && this.actions.delete(n);
+        }), Array.from(this.observables.keys()).forEach((n) => {
+          n.includes(`${e}_`) && (this.observables.get(n).unsubscribe(), this.observables.delete(n));
+        }), Array.from(this.methods.keys()).forEach((n) => {
+          n.includes(`${e}_`) && this.methods.delete(n);
+        }), t.dispatch({ type: "initial$_delete", value: { name: e } }), s ? s === "undo" ? this.record.dispatch({ type: `${e}_undo` }) : s === "redo" && this.record.dispatch({ type: `${e}_redo` }) : (t.dispatch({ type: "history$_update", value: {
           name: "delete$",
-          value: t
-        } }), this.record.dispatch({ type: `${t}_update`, value: "delete$" })), delete this.reducers[t], e.replaceReducer(N(this.reducers));
+          value: e
+        } }), this.record.dispatch({ type: `${e}_update`, value: "delete$" })), delete this.reducers[e], t.replaceReducer(A(this.reducers));
       };
-    }), p(this, K, () => {
-      let e = this.store;
-      e.action = (t, i, s) => {
-        if (!this.reducers.hasOwnProperty(t)) {
-          console.warn(`no exist property[ ${t} ]`);
+    }), d(this, V, () => {
+      let t = this.store;
+      t.action = (e, s, n) => {
+        if (!this.reducers.hasOwnProperty(e)) {
+          console.warn(`no exist property[ ${e} ]`);
           return;
         }
-        if (!this.actions.has(`${t}_${i}`)) {
-          console.warn(`no exist action[ ${i} ]`);
+        if (!this.actions.has(`${e}_${s}`)) {
+          console.warn(`no exist action[ ${s} ]`);
           return;
         }
-        e.dispatch({ type: `${t}_${i}`, value: s });
+        t.dispatch({ type: `${e}_${s}`, value: n });
       };
-    }), p(this, B, () => {
-      let e = this.store;
-      e.undo = () => {
-        e.current.history$.past.length !== 0 && e.dispatch({ type: "history$_undo" });
-      }, e.redo = () => {
-        e.current.history$.future.length !== 0 && e.dispatch({ type: "history$_redo" });
+    }), d(this, B, () => {
+      let t = this.store;
+      t.undo = () => {
+        t.current.history$.past.length !== 0 && t.dispatch({ type: "history$_undo" });
+      }, t.redo = () => {
+        t.current.history$.future.length !== 0 && t.dispatch({ type: "history$_redo" });
       };
-    }), p(this, W, () => {
-      let e = this.store;
-      e.revert = (t) => {
-      }, e.replay = (t) => {
+    }), d(this, Y, () => {
+      let t = this.store;
+      t.revert = (e) => {
+      }, t.replay = (e) => {
       };
-    }), p(this, z, () => {
-      const e = (i = {}, s) => s.type === "initial$_update" ? (i[s.value.name] = s.value.value, i) : (s.type === "initial$_delete" && delete i[s.value.name], i);
-      this.reducers.initial$ = e;
-      const t = me(
-        (i = { value: "history$ created.", timestamp: Date.now() }, s) => {
-          if (!s.type) return i;
-          switch (s.type) {
+    }), d(this, K, () => {
+      const t = (s = {}, n) => n.type === "initial$_update" ? (s[n.value.name] = n.value.value, s) : (n.type === "initial$_delete" && delete s[n.value.name], s);
+      this.reducers.initial$ = t;
+      const e = _t(
+        (s = { value: "history$ created.", timestamp: Date.now() }, n) => {
+          if (!n.type) return s;
+          switch (n.type) {
             case "history$_update":
-              return { value: s.value, timestamp: Date.now() };
+              return { value: n.value, timestamp: Date.now() };
             case "history$_undo":
-              return { value: s.value.value, timestamp: s.value.timestamp };
+              return { value: n.value.value, timestamp: n.value.timestamp };
             case "history$_redo":
-              return { value: s.value.value, timestamp: s.value.timestamp };
+              return { value: n.value.value, timestamp: n.value.timestamp };
           }
-          return i;
+          return s;
         },
         {
           limit: 1e3,
-          filter: ve(["history$_update"]),
+          filter: yt(["history$_update"]),
           undoType: "history$_undo",
           redoType: "history$_redo"
         }
       );
-      this.reducers.history$ = t, this.store.replaceReducer(N(this.reducers));
-    }), p(this, X, () => {
+      this.reducers.history$ = e, this.store.replaceReducer(A(this.reducers));
+    }), d(this, W, () => {
       this.store.getStateR = () => this.record.getState();
-    }), this.setValueState = (e, t = !1) => {
+    }), this.setValueState = (t, e = !1) => {
     };
   }
 }
-M = new WeakMap(), C = new WeakMap(), V = new WeakMap(), F = new WeakMap(), L = new WeakMap(), H = new WeakMap(), Y = new WeakMap(), J = new WeakMap(), K = new WeakMap(), B = new WeakMap(), W = new WeakMap(), z = new WeakMap(), X = new WeakMap();
-var G, O, q, Q;
-class St extends Et {
+M = new WeakMap(), N = new WeakMap(), k = new WeakMap(), F = new WeakMap(), D = new WeakMap(), H = new WeakMap(), L = new WeakMap(), J = new WeakMap(), V = new WeakMap(), B = new WeakMap(), Y = new WeakMap(), K = new WeakMap(), W = new WeakMap();
+var z, E, X, G;
+class be extends ve {
   constructor() {
     super();
-    d(this, G);
-    d(this, O);
-    d(this, q);
-    d(this, Q);
+    h(this, z);
+    h(this, E);
+    h(this, X);
+    h(this, G);
     this.setReducer = () => {
       Object.keys(this.reducers).length > 0;
-    }, this.setValueState = (e, t = !1) => {
-      let { name: i } = e;
-      if (i.includes("_"))
+    }, this.setValueState = (t, e = !1) => {
+      let { name: s } = t;
+      if (s.includes("_"))
         throw "'_' cannot be used in state name.";
-      if (i.includes("$") && i !== "history$")
+      if (s.includes("$") && s !== "history$")
         throw "'$' cannot be used in state name.";
-      this.reducers[i] || (t || (e.initialState = { value: e.value, timestamp: Date.now() }, e.inputState = e.initialState), this.createRecordState(e), l(this, G).call(this, e), l(this, Q).call(this, l(this, q).call(this, e), t));
-    }, p(this, G, (e) => {
-      let t = this.actions, i = this.methods, s = this.observables;
-      if (t.set(`${e.name}_update`, (o, u) => ({ value: u.value, timestamp: Date.now() })), e.before && (typeof e.before == "function" ? i.set(`${e.name}_before`, e.before) : s.set(
-        `${e.name}_before`,
-        l(this, O).call(this, e.before)
-      )), t.set(`${e.name}_undo`, (o, u) => ({ value: u.value.value, timestamp: u.value.timestamp })), e.undo && s.set(
-        `${e.name}_undo`,
-        l(this, O).call(this, e.undo)
-      ), t.set(`${e.name}_redo`, (o, u) => ({ value: u.value.value, timestamp: u.value.timestamp })), e.redo && s.set(
-        `${e.name}_redo`,
-        l(this, O).call(this, e.redo)
-      ), e.after && s.set(
-        `${e.name}_after`,
-        l(this, O).call(this, e.after)
-      ), !!e.actions && e.actions.length !== 0)
-        for (let o of e.actions) {
+      this.reducers[s] || (e || (t.initialState = { value: t.value, timestamp: Date.now() }, t.inputState = t.initialState), this.createRecordState(t), l(this, z).call(this, t), l(this, G).call(this, l(this, X).call(this, t), e));
+    }, d(this, z, (t) => {
+      let e = this.actions, s = this.methods, n = this.observables;
+      if (e.set(`${t.name}_update`, (o, a) => ({ value: a.value, timestamp: Date.now() })), t.before && (typeof t.before == "function" ? s.set(`${t.name}_before`, t.before) : n.set(
+        `${t.name}_before`,
+        l(this, E).call(this, t.before)
+      )), e.set(`${t.name}_undo`, (o, a) => ({ value: a.value.value, timestamp: a.value.timestamp })), t.undo && n.set(
+        `${t.name}_undo`,
+        l(this, E).call(this, t.undo)
+      ), e.set(`${t.name}_redo`, (o, a) => ({ value: a.value.value, timestamp: a.value.timestamp })), t.redo && n.set(
+        `${t.name}_redo`,
+        l(this, E).call(this, t.redo)
+      ), t.after && n.set(
+        `${t.name}_after`,
+        l(this, E).call(this, t.after)
+      ), !!t.actions && t.actions.length !== 0)
+        for (let o of t.actions) {
           if (o.name.includes("_"))
             throw console.log(o.name), "Cannot use '_' in action name";
-          if (t.has(`${e.name}_${o.name}`))
+          if (e.has(`${t.name}_${o.name}`))
             throw console.log(o.name), "already exist action name";
-          i.set(`${e.name}_${o.name}`, o.method), t.set(
-            `${e.name}_${o.name}`,
-            i.get(`${e.name}_${o.name}`)
+          s.set(`${t.name}_${o.name}`, o.method), e.set(
+            `${t.name}_${o.name}`,
+            s.get(`${t.name}_${o.name}`)
           );
         }
-    }), p(this, O, (e) => typeof e != "function" ? e : new ke().subscribe(e)), p(this, q, (e) => {
-      let { inputState: t } = e, i = (s = t, o) => {
-        if (!this.actions.has(o.type) || i.stateName !== o.type.split("_")[0]) return s;
-        const u = this.actions.get(o.type);
-        return u ? o.type.includes("_undo") || o.type.includes("_redo") || o.type.includes("_update") ? u(s, o) || s : (o.value && (s.value = o.value), u(o) || s) : s;
+    }), d(this, E, (t) => typeof t != "function" ? t : new jt().subscribe(t)), d(this, X, (t) => {
+      let { inputState: e } = t, s = (n = e, o) => {
+        if (!this.actions.has(o.type) || s.stateName !== o.type.split("_")[0]) return n;
+        const a = this.actions.get(o.type);
+        return a ? o.type.includes("_undo") || o.type.includes("_redo") || o.type.includes("_update") ? a(n, o) || n : (o.value && (n.value = o.value), a(o) || n) : n;
       };
-      return i.stateName = e.name, e.reducer = i, e;
-    }), p(this, Q, (e, t) => {
-      let { name: i, value: s, reducer: o } = e;
-      switch (t && e.initialState && (s = e.initialState.value), this.store.dispatch({ type: "initial$_update", value: { name: i, value: s }, isSilent: t }), t) {
+      return s.stateName = t.name, t.reducer = s, t;
+    }), d(this, G, (t, e) => {
+      let { name: s, value: n, reducer: o } = t;
+      switch (e && t.initialState && (n = t.initialState.value), this.store.dispatch({ type: "initial$_update", value: { name: s, value: n }, isSilent: e }), e) {
         case "undo":
-          this.record.dispatch({ type: `${i}_undo` });
+          this.record.dispatch({ type: `${s}_undo` });
           break;
         case "redo":
-          this.record.dispatch({ type: `${i}_redo` });
+          this.record.dispatch({ type: `${s}_redo` });
           break;
       }
-      this.reducers[i] = o, this.store.replaceReducer(N(this.reducers)), this.parameters.set(i, e);
+      this.reducers[s] = o, this.store.replaceReducer(A(this.reducers)), this.parameters.set(s, t);
     });
   }
 }
-G = new WeakMap(), O = new WeakMap(), q = new WeakMap(), Q = new WeakMap();
-class xt extends St {
+z = new WeakMap(), E = new WeakMap(), X = new WeakMap(), G = new WeakMap();
+class _e extends be {
   constructor() {
     return super(), this.build = () => {
       this.setRecord();
-      const e = this.setStore();
-      return this.setReducer(), e;
+      const t = this.setStore();
+      return this.setReducer(), t;
     }, this.build();
   }
 }
-const Tt = ke, Nt = new xt();
+const me = jt, we = new _e();
 export {
-  Nt as m$,
-  Tt as stateObservable
+  we as m$,
+  me as stateObservable
 };
