@@ -1,0 +1,28 @@
+{
+  "name": "matrixphere",
+  "version": "0.0.1",
+  "description": "버전: 0.0.1 | 작성일: 2025-03-14",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seconnd/matrixphere.git"
+  },
+  "author": "0zooc",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/seconnd/matrixphere/issues"
+  },
+  "homepage": "https://github.com/seconnd/matrixphere#readme",
+  "devDependencies": {
+    "typescript": "^5.8.2",
+    "vite": "^6.2.3"
+  },
+  "dependencies": {
+    "redux": "^5.0.1",
+    "redux-undo": "^1.1.0",
+    "rxjs": "^7.8.2"
+  }
+}
