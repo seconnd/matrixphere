@@ -1307,7 +1307,14 @@ class be extends ve {
       let { inputState: e } = t, s = (n = e, o) => {
         if (!this.actions.has(o.type) || s.stateName !== o.type.split("_")[0]) return n;
         const a = this.actions.get(o.type);
-        return a ? o.type.includes("_undo") || o.type.includes("_redo") || o.type.includes("_update") ? a(n, o) || n : (o.value && (n.value = o.value), a(o) || n) : n;
+        if (!a) return n;
+        if (o.type.includes("_undo") || o.type.includes("_redo") || o.type.includes("_update"))
+          return a(n, o) || n;
+        {
+          o.value || (o.value = n.value);
+          let { value: u } = a(o) || n;
+          return { value: u, timestamp: Date.now() };
+        }
       };
       return s.stateName = t.name, t.reducer = s, t;
     }), d(this, G, (t, e) => {

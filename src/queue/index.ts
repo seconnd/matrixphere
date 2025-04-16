@@ -1,1 +1,1 @@
-export { LinkedList } from './implement.ts'
+export { LinkedList } from './1_linkedlist.js'

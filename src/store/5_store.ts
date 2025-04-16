@@ -1,8 +1,8 @@
 import { legacy_createStore as createStore, combineReducers, applyMiddleware, Middleware, compose, Reducer } from 'redux'
 import undoable, { includeAction } from 'redux-undo'
 
-import { LinkedList } from './queue'
-import { Parameter, CustomAction, isSilent } from './0_types'
+import { LinkedList } from '../queue'
+import { Parameter, CustomAction, isSilent, Payload } from './0_types'
 import { Record } from './4_record'
 
 export class Store extends Record {
@@ -30,16 +30,17 @@ export class Store extends Record {
 
         if (this.store) return
 
-        const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+        const composeEnhancers = compose
 
-        let store = this.store = createStore(
+        this.store = createStore(
             combineReducers({start$: (state = {}) => state}),
             composeEnhancers(applyMiddleware((this.setMiddleware() as Middleware)))
         )
 
-        store.dispatched = new LinkedList()
-        store.current = store.getState()
-        store.currentRecord = {}
+        this.store.dispatched = new LinkedList()
+        this.store.current = this.store.getState()
+        this.store.currentRecord = {}
+        this.store.parameters = this.parameters
     }
 
     #setSubscribe = () => {
@@ -66,10 +67,14 @@ export class Store extends Record {
                 let undid = store.current.history$.future[0].value
 
                 switch (undid.name) {
+
                     case 'initial$':
+
                         if (store.remove)
                             store.remove(undid.value.name, 'undo')
+
                         return
+
                     case 'delete$':
 
                         let parameter = this.parameters.get(undid.value)
@@ -78,8 +83,11 @@ export class Store extends Record {
                             this.setValueState(parameter, 'undo')
 
                         return
+
                     default:
+
                         this.record.dispatch({ type: `${undid.name}_undo` })
+
                         return
                 }
             }
@@ -107,17 +115,27 @@ export class Store extends Record {
                 }
             }
 
+            let payload: Payload = {}
+            if (dispatched.action?.dispatched?.name) payload.target = dispatched.action.dispatched.name
+            if (dispatched.action?.type) payload.trigger = dispatched.action.type
+            if (dispatched.action?.dispatched?.state?.value) payload.previous = dispatched.action.dispatched.state.value
+            if (dispatched.action?.value) payload.next = dispatched.action.value
+
             if (actionType.substring(actionType.length - 5, actionType.length) === '_undo') {
 
+                payload.next = payload.next.value
+
                 if (this.observables.has(`${dispatched.name}_undo`))
-                    this.observables.get(`${dispatched.name}_undo`)!.next(dispatched.action)
+                    this.observables.get(`${dispatched.name}_undo`)!.next(payload)
 
                 return
 
             } else if (actionType.substring(actionType.length - 5, actionType.length) === '_redo') {
 
+                payload.next = payload.next.value
+
                 if (this.observables.has(`${dispatched.name}_redo`))
-                    this.observables.get(`${dispatched.name}_redo`)!.next(dispatched.action)
+                    this.observables.get(`${dispatched.name}_redo`)!.next(payload)
 
                 return
 
@@ -141,7 +159,7 @@ export class Store extends Record {
                     this.parameters.get(dispatched.name)!.inputState = store.current[dispatched.name]
 
             if (this.observables.has(`${dispatched.name}_after`))
-                this.observables.get(`${dispatched.name}_after`)!.next(dispatched.action)
+                this.observables.get(`${dispatched.name}_after`)!.next(payload)
 
         })
     }
@@ -265,7 +283,7 @@ export class Store extends Record {
 
         let store = this.store
 
-        store.remove = (name: string, isSilent: isSilent) => {
+        store.remove = (name: string, isSilent: isSilent = false) => {
 
             if (!this.reducers.hasOwnProperty(name)) {
                 console.warn(`no exist property[ ${name} ]`)

@@ -7,8 +7,8 @@ import { SetMiddleware } from './3_middleware'
 
 export class Record extends SetMiddleware {
 
-    protected record!: CustomStore
-    protected store!: CustomStore
+    declare protected record: CustomStore
+    declare protected store: CustomStore
 
     constructor() { super() }
 

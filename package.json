@@ -1,13 +1,14 @@
 {
   "name": "matrixphere",
-  "version": "0.0.6",
-  "description": "버전: 0.0.6 | 작성일: 2025-03-26",
+  "version": "0.0.7",
+  "description": "버전: 0.0.7 | 작성일: 2025-03-27",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
   "files": [
     "dist"
   ],
   "scripts": {
+    "dev": "vite",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,7 +23,11 @@
   "homepage": "https://github.com/seconnd/matrixphere#readme",
   "devDependencies": {
     "typescript": "^5.8.2",
-    "vite": "^6.2.3"
+    "vite": "^6.2.3",
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "ts-jest": "^29.2.5"
   },
   "dependencies": {
     "redux": "^5.0.1",

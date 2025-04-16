@@ -1,8 +1,11 @@
-import { Observable } from './1_observable'
-import { State } from './7_state'
+import { Basket } from './basket'
+import { BasketObservable } from './basket'
+import { Build } from './store'
+import { StoreObservable } from './store'
 
-const stateObservable = Observable
-const m$ = new State()
+const b$ = Basket
+const bob$ = BasketObservable
+const s$ = new Build()
+const sob$ = StoreObservable
 
-export { stateObservable }
-export { m$ }
+export { b$, bob$, s$, sob$ }

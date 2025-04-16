@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 
-import { Parameter, State, CustomAction, CustomReducer, Method, isSilent } from './0_types'
+import { Parameter, State, CustomAction, CustomReducer, Method, isSilent, Payload } from './0_types'
 import { Store } from './5_store'
 
-import { Observable } from './1_observable'
+import { StoreObservable } from './1_observable'
 
 export class Reducer extends Store {
 
@@ -27,10 +27,8 @@ export class Reducer extends Store {
 
         if (this.reducers[name]) return
 
-        if (!isSilent) {
-            parameter.initialState = { value: parameter.value, timestamp: Date.now() }
-            parameter.inputState = parameter.initialState
-        }
+        parameter.initialState = { value: parameter.value, timestamp: Date.now() }
+        parameter.inputState = parameter.initialState
 
         // record state
         this.createRecordState(parameter)
@@ -107,7 +105,7 @@ export class Reducer extends Store {
 
         if (typeof method !== 'function') return method
 
-        return new Observable().subscribe(method)
+        return new StoreObservable().subscribe(method)
     }
 
     #setReducer = (parameter: Parameter) => {
@@ -124,14 +122,28 @@ export class Reducer extends Store {
 
             if (!actionMethod) return state
 
-            if (action.type.includes('_undo') || action.type.includes('_redo') || action.type.includes('_update')) {
+            if (this.store.dispatched.tail?.value.action.type === undefined) return state
+
+            if (action.type.includes('_update') || action.type.includes('_undo') || action.type.includes('_redo')) {
+
                 return actionMethod(state, action) || state
-            } else {
 
-                if (action.value) state.value = action.value
+            } else if (action.type === this.store.dispatched.tail?.value.action.type) {
 
-                return actionMethod(action) || state
+                if (!action.value) action.value = state.value
+
+                let payload: Payload = {}
+                if (action?.dispatched?.name) payload.target = action.dispatched.name
+                if (action?.type) payload.trigger = action.type
+                if (action?.dispatched?.state?.value) payload.previous = action.dispatched.state.value
+                if (action?.value) payload.next = action.value
+
+                let value = actionMethod(payload) || state
+
+                return { value, timestamp: Date.now() }
             }
+            
+            return state
         }
 
         reducer.stateName = parameter.name
@@ -159,7 +171,7 @@ export class Reducer extends Store {
                 break
         }
 
-        this.reducers[name] = reducer
+        this.reducers[name] = reducer!
 
         this.store.replaceReducer(combineReducers(this.reducers))
 

@@ -1,4 +1,4 @@
-import { AbstractNode, AbstractLinkedList } from './types.ts'
+import { AbstractNode, AbstractLinkedList } from './0_types.js'
 
 class Node<T> extends AbstractNode<T> {
     public next: Node<T> | null = null

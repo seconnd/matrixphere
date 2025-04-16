@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs'
 
-export class Observable extends Subject<any> {
+export class BasketObservable extends Subject<any> {
     constructor() {
         super()
     }

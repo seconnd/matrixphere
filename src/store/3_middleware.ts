@@ -1,5 +1,5 @@
 import { Middleware } from 'redux'
-import { Dispatched, CustomAction, CustomStore, Method } from './0_types'
+import { Dispatched, CustomAction, CustomStore, Method, Payload } from './0_types'
 import { Field } from './2_field'
 
 export class SetMiddleware extends Field{
@@ -23,22 +23,35 @@ export class SetMiddleware extends Field{
 
             action.dispatched = {
                 name: dispatched.name,
-                state: dispatched.state
+                state: dispatched.state,
+                type: action.type
             }
 
             let result: CustomAction | undefined
 
+            let payload: Payload = {
+                target: dispatched.name,
+                trigger: action.type
+            }
+            if (dispatched.state?.value) payload.previous = dispatched.state.value
+            if (action?.value) payload.next = action.value
+
             if (action.type.includes('_undo') || action.type.includes('_redo')) {
             } else if (this.observables.has(`${name}_before`)) {
 
-                this.observables.get(`${name}_before`)!.next(action)
+                this.observables.get(`${name}_before`)!.next(payload)
 
             } else if (this.methods.has(`${name}_before`)) {
 
                 const method: Method | undefined = this.methods.get(`${name}_before`)
 
                 if (method) {
-                    result = this.#verifyAction(method(action))
+
+                    let returned = method(payload)
+
+                    if (returned !== action.value) action.value = returned
+
+                    result = this.#verifyAction(action)
                     result.dispatched = action.dispatched
                 }
 
